@@ -1,5 +1,7 @@
 # `spatialcompare`: Create pretty comparative maps of spatial features using `sf`
 
+[![DOI](https://zenodo.org/badge/184946513.svg)](https://zenodo.org/badge/latestdoi/184946513)
+
 - Author: Toby C. Wilkinson
 
 ## Introduction
