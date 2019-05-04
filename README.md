@@ -1,6 +1,9 @@
 # `spatialcompare`: Create pretty comparative maps of spatial features using `sf`
 
+<!-- badges: start -->
 [![DOI](https://zenodo.org/badge/184946513.svg)](https://zenodo.org/badge/latestdoi/184946513)
+[![Travis build status](https://travis-ci.org/tcwilkinson/spatialcompare.svg?branch=master)](https://travis-ci.org/tcwilkinson/spatialcompare)
+<!-- badges: end -->
 
 ## Introduction
 
