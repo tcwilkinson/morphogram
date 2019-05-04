@@ -25,7 +25,6 @@
 #' distribute(sf_layer)
 #' distribute(sf_layer,margin=1.5)
 #' @export
-
 distribute <- function(x, preserve.parameters=T,
                        type="regulargrid", cols=NULL, rows=NULL,
                        dir="v", max.features=200,
