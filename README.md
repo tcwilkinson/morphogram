@@ -8,7 +8,7 @@ This package designed to facilitate the construction of infographics which place
 
 Functions rely on `sf` objects as inputs and outputs, hence the primary dependency of this package is `sf`. Use of `sf` objects provides maximum flexibility for the graphics output by leveraging base graphics or packages such as `ggplot` according to need or preference.
 
-![Sample of compared polygons from the sf nc data-set](sample_nc.png)
+![Sample of compared polygons from the sf nc data-set](man/figures/sample_nc.png)
 
 ## Install
 
