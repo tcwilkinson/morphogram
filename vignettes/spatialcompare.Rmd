@@ -1,10 +1,10 @@
 ---
-title: "Spatial Compare Package"
+title: "Introduction to `spatialcompare`: Ordered Tableau and Comparison of Spatial Features"
 author: "Toby C. Wilkinson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to `spatialcompare`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -129,7 +129,7 @@ text(st_coordinates(st_centroid(st_geometry(distr_nc))),labels=distr_nc$NAME,cex
 
 Naturally, the resulting `sf` objects or the plot can be exported as external files, or as PDFs, as below:-
 
-```{r, exec=FALSE}
+```r
 # Export as shapefile (without CRS)
 st_write(distr_nc, "export.shp")
 

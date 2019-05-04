@@ -1,15 +1,30 @@
 #' distribute
 #'
 #' This function spatially distributes a set of sf features based on their dimensions, and orders them
-#' according to defined features
+#' according to defined features.
+#'
 #' The spatial features should be centred around 0,0. Use `normalizeAroundCentroid` to group different
 #' sets of spatial features around 0,0.
-#' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared.
-#' @param dir="v" Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first.
-#' @param cols=5 Number of columns of features to plot before moving onto next line (if dir="v").
-#' @param rows=NULL Number of rows of features to plot before moving onto next line (if dir="h").
-#' @param irregular.grid=F Whether to distribute features regularly (default), or (NOT YET IMPLEMENTED:) take account of the differing sizes of features.
-#' distribute()
+#'
+#' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
+#' @param preserve.parameters Whether to preserve non-geometry parameters; default T.
+#' @param type Method used to distribute features; default and only functioning method is "regulargrid".
+#' @param dir Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first; default "v".
+#' @param max.features Maximum features to compare; default=200.
+#' @param cols Number of columns of features to plot before moving onto next line if dir="v".
+#' @param rows Number of rows of features to plot before moving onto next line if dir="h".
+#' @param margin Scalar coefficient of spacing between features; default 1.2.
+#' @param x.mar Scalar coefficient of spacing between x values; default 1.
+#' @param y.mar Scalar coefficient of spacing between x values; default 1.
+#' @param scale Affine scaling of feature dimensions; default 1.
+#' @seealso \code{\link{normalizeAroundCentroid}}
+#' @return An sf object containing one or more features (with no defined CRS)
+#' @example
+#' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
+#' sf_layer <- normalizeAroundCentroid(sf_layer)
+#' distribute(sf_layer)
+#' distribute(sf_layer,margin=1.5)
+#' @export
 
 distribute <- function(x, preserve.parameters=T,
                        type="regulargrid", cols=NULL, rows=NULL,
@@ -71,15 +86,15 @@ distribute <- function(x, preserve.parameters=T,
       }
       affine_transform <- c(x_multiplier*pos_x , y_multiplier*pos_y)
       if(isTRUE(preserve.parameters)) {
-        d[[i]] <- st_sf(
-          data.frame( st_drop_geometry(x[i,]),
-                      geom=st_sf( (sf::st_geometry(x[i,]) * scale) + affine_transform) )
+        d[[i]] <- sf::st_sf(
+          data.frame( sf::st_drop_geometry(x[i,]),
+                      geom=sf::st_sf( (sf::st_geometry(x[i,]) * scale) + affine_transform) )
           )
       } else {
-        d[[i]] <- st_sf((sf::st_geometry(x[i,]) * scale) + affine_transform)
+        d[[i]] <- sf::st_sf((sf::st_geometry(x[i,]) * scale) + affine_transform)
       }
     }
-    d <- st_sf(do.call(rbind,d))
+    d <- sf::st_sf(do.call(rbind,d))
   }
 
   return(d)

@@ -4,17 +4,23 @@
 #' centroid lies at the centre (0,0) of an arbitrary metre-based mercator projection. The resulting featuresh
 #' are thus projected overlapping at the same scale, which can be visually compared. Note that the resulting
 #' sf object has no CRS.
-#' To visually distribute the resulting features, use a `distribute` function.
-#' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared.
-#' @param by.feature Whether to reproject by single features by individual feature centroids
-#' or reproject all features by a single centroid of the union of all features (FALSE). Default `TRUE`
-#' @keywords cartogram, sf, infographic
-#' @export y An sf object containing one or more features (with no defined CRS)
-#' @examples
 #'
-#' normalizeAroundCentroid(nc)
-
-normalizeAroundCentroid <- function(x, by.feature=T) {
+#' To visually distribute the resulting features, use the `distribute` function.
+#'
+#' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
+#' @param by.feature Whether to reproject by single features by individual feature centroids, T,
+#' or reproject all features by a single centroid of the union of all features, F; default=TRUE.
+#' @param combine Combine multiple geometries into one; default=F.
+#' @keywords cartogram, sf, infographic
+#' @seealso \code{\link{distribute}}
+#' @return An sf object containing one or more features (with no defined CRS)
+#' @example
+#' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
+#' sf_layer <- normalizeAroundCentroid(sf_layer)
+#' normalizeAroundCentroid(sf_layer)
+#' normalizeAroundCentroid(sf_layer, by.feature=F)
+#' @export
+normalizeAroundCentroid <- function(x, by.feature=T, combine=F) {
   by.id = by.feature
 
   if (length(x)<1) {
@@ -45,6 +51,7 @@ normalizeAroundCentroid <- function(x, by.feature=T) {
     y <- sf::st_transform(x, local_crs)
     # remove CRS
     y <- sf::st_set_crs(y, NA)
+    if (isTRUE(combine)) { y <- sf::st_combine(y) }
   } else {
     # effectively split each original polygon, reproject, then recombine into single layer
     y <- list()
