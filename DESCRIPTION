@@ -1,0 +1,14 @@
+Package: spatialcompare
+Type: Package
+Title: Comparative Tables of Spatial Features Preserving Accurate Spatial Dimensions
+Version: 0.1.0
+Author: Toby Wilkincon
+Maintainer: Toby Wilkinson <open@tobywilkinson.co.uk>
+Description: This package designed to facilitate the construction of infographics which place spatial features side-by-side.
+   The package aims to preserve the accurate spatial dimensions of the features while translating their spatial position to allow visual comparison. 
+   Applications include visual comparison the dimensions of modern or ancient cities, study regions or building sizes in two dimensional space. 
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    sf

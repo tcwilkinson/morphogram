@@ -1,0 +1,153 @@
+---
+title: "Spatial Compare Package"
+author: "Toby Wilkinson"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  cache= FALSE,
+  collapse = TRUE,
+  comment = "#>",
+  global.par = TRUE
+)
+```
+
+```{r,include=FALSE}
+par(mar=c(0,0,0,0))
+```
+
+## Introduction
+
+This package designed to facilitate the construction of infographics which place spatial features side-by-side, for example to compare visually the dimensions of cities, study regions or building sizes in two dimensional space. The package aims to preserve the accurate spatial _dimensions_ of the features but translate their spatial _position_ so that they are distributed visually. Because spatial _dimensions_ are preserved, further spatial analysis (e.g. area calculations) or the additional of scale bars can be accurately plotted.
+
+Functions rely on `sf` objects as inputs and outputs, hence the primary dependency of this package is `sf`. Use of `sf` objects provides maximum flexibility for the graphics output by leveraging base graphics or packages such as `ggplot` according to need or preference.
+
+For real world publication quality graphics, it is likely that the outputs will need to be visually tweak or adjusted.
+
+## Basics: How to Use this Package
+
+The package should first be installed using the usual paths (`install.packages`) from GitHub or elsewhere; the package can then be loaded using (`library(spatialcompare)`)
+
+```{r }
+library(spatialcompare)
+```
+
+For this vignette, the a data example from the `sf` package will be used to demonstrate the functions of `spatialcompare`. This includes polygons of districts from North Carolina, and data with Sudden Infant Death Syndrome (SIDS) statistics for those counties (see `sf` documentation for more details, especially: https://r-spatial.github.io/spdep/articles/sids ). Here the original data is plotted as latitude/longitude format.
+
+```{r }
+library(sf)
+nc_original <- st_read(system.file("shape/nc.shp", package="sf"))
+plot(nc_original,axes=T)
+```
+
+The `nc` data-set has lots of fields, but for simplifying the visualisations below, we'll just select one parameter (`AREA`), which is parameter `[1]`.
+
+```{r }
+nc <- nc_original[1]
+plot(nc,axes=T)
+```
+
+We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to transform the `sf` features (in this case the county shapes) into a "normalized" location so that the centre of each feature is at Easting 0m and Northing 0m. 
+
+For this we use the `normalizeAroundCentroid` function. In some instances we might want to transform multiple features around a single centroid for the collection of features.
+
+```{r }
+nc_normal_combined <- normalizeAroundCentroid(nc,by.feature=F)
+plot(nc_normal_combined,axes=T)
+abline(v=0,col="red")
+abline(h=0,col="green")
+```
+
+However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, so set `by.feature` to `TRUE`. Here you can see that all of the counties are now overlapping around `0,0`.
+
+```{r }
+nc_normal <- normalizeAroundCentroid(nc,by.feature=T)
+plot(nc_normal,axes=T)
+abline(v=0,col="red")
+abline(h=0,col="green")
+```
+
+The next step is to re-distribute the features across space so that they can be compared visually. The `distribute` function calculates where each feature should be located on the comparative graph. 
+
+Currently only one form of distribution is available, a regular grid based on the maximal bounding box of all features to calculate grid size. Future versions may allow better fitting of irregular features. This is the default type of distribution algorithm.
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(nc_normal),col=nc_normal$AREA)
+```
+
+The regular grid algorithm has some customizations:
+
+- `margin`, `y.mar`, `x.mar` - These can be changed to adjust the margins between features. Note `y.mar` and `x.mar` are multiplied by `margin` to provide the individual x and y margin spacing. To override `y.mar` and `x.mar` manually, you must ensure `margin=1`. The values are in multiples of the bounding box heights or widths respectively. On the second version here, the x.margins are exaggerated which stretches out the distribution horizontally. Absolute dimensions of individual features in the dataset are preserved in both.
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(nc_normal, margin=1.5))
+plot(distribute(nc_normal, margin=1, x.mar=2))
+```
+
+- `scale` - Used to adjust the scale of features (note that this directly affects the spatial dimensions of features, within the notional coordinate system, so this should be treated with caution).
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(nc_normal, scale=0.3))
+```
+
+- `max.features`, `cols` / `rows`, `dir` - These control the dimensions of the grid; `max.features` is set to 200 by default; the function will only distribute a maximum of these features, or the actual number of features, whichever is less. By default, the direction of the distribution is left-to-right then top-to-bottom (`dir="v"`) and the square root of the features to distribute is used to count the number of columns; the number of columns can be manually adjust using `cols`. Alternatively, the direction of distribution can be top-to-bottom then left-to-right (`dir="h"`), in which case `rows` can be used to manually adjust the number of rows.
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(nc_normal, dir="h", rows=10))
+```
+
+Often it is useful to sort the features by some attribute. This is best done before passing to `distribute()`. For example to order these county shapes by total area, we simply use a normal `order()` selection, and here just distribute the first twenty of them. Naturally they can also be coloured by the same or different parameters.
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(nc_normal[rev(order(nc_normal$AREA)),], max.features=20, margin=2),
+     col = sf.colors(20), border = 'grey')
+```
+
+And probably we want to label the features, otherwise it may be difficult to identify them. Here we can call up the names of the counties and label them with text.
+
+```{r }
+par(mar=c(0,0,0,0))
+nc_n2 <- normalizeAroundCentroid(nc_original,by.feature=T)
+distr_nc <- distribute(nc_n2[rev(order(nc_n2$AREA)),], max.features=20, margin=2)
+# Just plot
+plot(st_geometry(distr_nc), col = sf.colors(20, categorical = TRUE), border = 'grey')
+# Plot labels based on centroids
+#points(st_coordinates(st_centroid(st_geometry(distr_nc))))
+text(st_coordinates(st_centroid(st_geometry(distr_nc))),labels=distr_nc$NAME,cex=0.5)
+```
+
+Naturally, the resulting `sf` objects or the plot can be exported as external files, or as PDFs, as below:-
+
+```{r, exec=FALSE}
+# Export as shapefile (without CRS)
+st_write(distr_nc, "export.shp")
+
+# Export PDF of plot for manual tweaking in other apps
+pdf(file ="export.pdf", width=10, height=10)
+  par(mar=c(0,0,0,0))
+  nc_n2 <- normalizeAroundCentroid(nc_original,by.feature=T)
+  distr_nc <- distribute(nc_n2[rev(order(nc_n2$AREA)),], max.features=100, margin=1.8)
+  plot(st_geometry(distr_nc), col = sf.colors(20, categorical = TRUE), border = 'grey')
+  text(st_coordinates(st_centroid(st_geometry(distr_nc))),labels=distr_nc$NAME,cex=0.5)
+dev.off()
+```
+
+**Warning**: the `distribute` function assumes that the input features have been normalized and treats each feature as a separate item. Don't mix them up, otherwise you'll get some really weird plots!...
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(st_geometry(distribute(nc_normal_combined)), col = sf.colors(20, categorical = TRUE), border = 'grey')
+```
+
+
