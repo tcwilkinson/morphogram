@@ -1,4 +1,4 @@
-#' normalizeAroundCentroid
+#' align
 #'
 #' This function finds the centroid of a set of sf-based features and reprojects them so that each feature's
 #' centroid lies at the centre (0,0) of an arbitrary metre-based mercator projection. The resulting featuresh
@@ -10,17 +10,17 @@
 #' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
 #' @param by.feature Whether to reproject by single features by individual feature centroids, T,
 #' or reproject all features by a single centroid of the union of all features, F; default=TRUE.
-#' @param combine Combine multiple geometries into one; default=F.
+#' @param combine Combine multiple geometries into one, using st_combine; default=F.
 #' @keywords cartogram, sf, infographic
 #' @seealso \code{\link{distribute}}
 #' @return An sf object containing one or more features (with no defined CRS)
 #' @example
 #' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
-#' sf_layer <- normalizeAroundCentroid(sf_layer)
-#' normalizeAroundCentroid(sf_layer)
-#' normalizeAroundCentroid(sf_layer, by.feature=F)
+#' sf_layer <- align(sf_layer)
+#' align(sf_layer)
+#' align(sf_layer, by.feature=F)
 #' @export
-normalizeAroundCentroid <- function(x, by.feature=T, combine=F) {
+align <- function(x, by.feature=T, combine=F) {
   by.id = by.feature
 
   if (length(x)<1) {

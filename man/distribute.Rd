@@ -4,7 +4,7 @@
 \alias{distribute}
 \title{distribute}
 \usage{
-distribute(x, preserve.parameters = T, type = "regulargrid",
+distribute(x, preserve.parameters = T, method = "regulargrid",
   cols = NULL, rows = NULL, dir = "v", max.features = 200,
   margin = 1.2, x.mar = 1, y.mar = 1, scale = 1, angle = 0)
 }
@@ -13,7 +13,7 @@ distribute(x, preserve.parameters = T, type = "regulargrid",
 
 \item{preserve.parameters}{Whether to preserve non-geometry parameters; default T.}
 
-\item{type}{Method used to distribute features; default and only functioning method is "regulargrid".}
+\item{method}{Method used to distribute features; default and only functioning method is "regulargrid".}
 
 \item{cols}{Number of columns of features to plot before moving onto next line if dir="v".}
 
@@ -37,13 +37,12 @@ distribute(x, preserve.parameters = T, type = "regulargrid",
 An sf object containing one or more features (with no defined CRS)
 }
 \description{
-This function spatially distributes a set of sf features based on their dimensions, and orders them
-according to defined features.
+This function spatially distributes a set of sf features.
 }
 \details{
-The spatial features should be centred around 0,0. Use `normalizeAroundCentroid` to group different
-sets of spatial features around 0,0.
+The spatial features should be centred around 0,0. Use `align` to align different
+sets of simple spatial features around 0,0.
 }
 \seealso{
-\code{\link{normalizeAroundCentroid}}
+\code{\link{align}}
 }

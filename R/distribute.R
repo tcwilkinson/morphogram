@@ -1,14 +1,13 @@
 #' distribute
 #'
-#' This function spatially distributes a set of sf features based on their dimensions, and orders them
-#' according to defined features.
+#' This function spatially distributes a set of sf features.
 #'
-#' The spatial features should be centred around 0,0. Use `normalizeAroundCentroid` to group different
-#' sets of spatial features around 0,0.
+#' The spatial features should be centred around 0,0. Use `align` to align different
+#' sets of simple spatial features around 0,0.
 #'
 #' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
 #' @param preserve.parameters Whether to preserve non-geometry parameters; default T.
-#' @param type Method used to distribute features; default and only functioning method is "regulargrid".
+#' @param method Method used to distribute features; default and only functioning method is "regulargrid".
 #' @param dir Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first; default "v".
 #' @param max.features Maximum features to compare; default=200.
 #' @param cols Number of columns of features to plot before moving onto next line if dir="v".
@@ -18,21 +17,21 @@
 #' @param y.mar Scalar coefficient of spacing between x values; default 1.
 #' @param scale Affine scaling of feature dimensions; default 1.
 #' @param angle Affine rotation of feature in degrees; default 0.
-#' @seealso \code{\link{normalizeAroundCentroid}}
+#' @seealso \code{\link{align}}
 #' @return An sf object containing one or more features (with no defined CRS)
 #' @example
 #' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
-#' sf_layer <- normalizeAroundCentroid(sf_layer)
+#' sf_layer <- align(sf_layer)
 #' distribute(sf_layer)
 #' distribute(sf_layer,margin=1.5)
 #' @export
 distribute <- function(x, preserve.parameters=T,
-                       type="regulargrid", cols=NULL, rows=NULL,
+                       method="regulargrid", cols=NULL, rows=NULL,
                        dir="v", max.features=200,
                        margin=1.2, x.mar=1, y.mar=1,
                        scale=1, angle=0
                        ) {
-  type <- "regulargrid" # FORCE regular.grid as this is the only supported method type
+  method <- "regulargrid" # FORCE regular.grid as this is the only currently supported method type
 
   if (nrow(x)<1) {
     warning("No features found in supplied sf object, returning empty sf object")
@@ -64,7 +63,7 @@ distribute <- function(x, preserve.parameters=T,
   }
 
   ## regulargrid - Calculate centre point to translate objects to, based on a regular grid using maximal extent of bounding boxes
-  if(type=="regulargrid") {
+  if(method=="regulargrid") {
     d <- NULL
     if (is.null(cols)) { cols = ceiling(sqrt(max.features)) }
     cols <- as.numeric(cols)

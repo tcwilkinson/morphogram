@@ -32,8 +32,7 @@
 
 <meta property="og:title" content="distribute — distribute" />
 
-<meta property="og:description" content="This function spatially distributes a set of sf features based on their dimensions, and orders them
-according to defined features." />
+<meta property="og:description" content="This function spatially distributes a set of sf features." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -64,7 +63,7 @@ according to defined features." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialcompare</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -81,6 +80,9 @@ according to defined features." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -110,14 +112,13 @@ according to defined features." />
 
     <div class="ref-description">
     
-    <p>This function spatially distributes a set of sf features based on their dimensions, and orders them
-according to defined features.</p>
+    <p>This function spatially distributes a set of sf features.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>distribute</span>(<span class='no'>x</span>, <span class='kw'>preserve.parameters</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"regulargrid"</span>,
+    <pre class="usage"><span class='fu'>distribute</span>(<span class='no'>x</span>, <span class='kw'>preserve.parameters</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"regulargrid"</span>,
   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>max.features</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>x.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>x.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -131,7 +132,7 @@ according to defined features.</p>
       <td><p>Whether to preserve non-geometry parameters; default T.</p></td>
     </tr>
     <tr>
-      <th>type</th>
+      <th>method</th>
       <td><p>Method used to distribute features; default and only functioning method is "regulargrid".</p></td>
     </tr>
     <tr>
@@ -166,6 +167,10 @@ according to defined features.</p>
       <th>scale</th>
       <td><p>Affine scaling of feature dimensions; default 1.</p></td>
     </tr>
+    <tr>
+      <th>angle</th>
+      <td><p>Affine rotation of feature in degrees; default 0.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -174,12 +179,12 @@ according to defined features.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The spatial features should be centred around 0,0. Use `normalizeAroundCentroid` to group different
-sets of spatial features around 0,0.</p>
+    <p>The spatial features should be centred around 0,0. Use `align` to align different
+sets of simple spatial features around 0,0.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='normalizeAroundCentroid.html'>normalizeAroundCentroid</a></code></p></div>
+    <div class='dont-index'><p><code><a href='align.html'>align</a></code></p></div>
     
 
   </div>

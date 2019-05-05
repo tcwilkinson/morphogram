@@ -5,11 +5,11 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Introduction to <code>spatialcompare</code>: Ordered Tableau and Comparison of Spatial Features • spatialcompare</title>
+<title>Getting started with <code>spatialcompare</code>: Ordered Tableau and Comparison of Simple Features • spatialcompare</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Introduction to &lt;code&gt;spatialcompare&lt;/code&gt;: Ordered Tableau and Comparison of Spatial Features">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Getting started with &lt;code&gt;spatialcompare&lt;/code&gt;: Ordered Tableau and Comparison of Simple Features">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialcompare</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -47,6 +47,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -68,10 +71,10 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Introduction to <code>spatialcompare</code>: Ordered Tableau and Comparison of Spatial Features</h1>
+      <h1>Getting started with <code>spatialcompare</code>: Ordered Tableau and Comparison of Simple Features</h1>
                         <h4 class="author">Toby C. Wilkinson</h4>
             
-            <h4 class="date">2019-05-04</h4>
+            <h4 class="date">2019-05-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/tcwilkinson/spatialcompare/blob/master/vignettes/spatialcompare.Rmd"><code>vignettes/spatialcompare.Rmd</code></a></small>
       <div class="hidden name"><code>spatialcompare.Rmd</code></div>
@@ -90,12 +93,12 @@
 <div id="basics-how-to-use-this-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basics-how-to-use-this-package" class="anchor"></a>Basics: How to Use this Package</h2>
-<p>The package should first be installed using the usual paths (<code>install.packages</code>) from GitHub or elsewhere; the package can then be loaded using (<code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(spatialcompare)</a></code>)</p>
+<p>The package should first be installed using the usual paths (<code>install.packages</code>) from GitHub or elsewhere; the package can then be loaded using (<code><a href="https://www.rdocumentation.org/packages/base/topics/library">library(spatialcompare)</a></code>). Note that <code>spatialcompare</code> relies on the <code>sf</code> package, which in turn has dependencies on the GDAL libraries. Depending on the platform, you may need to install these libraries externally to R.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(spatialcompare)</code></pre></div>
 <p>For this vignette, the a data example from the <code>sf</code> package will be used to demonstrate the functions of <code>spatialcompare</code>. This includes polygons of districts from North Carolina, and data with Sudden Infant Death Syndrome (SIDS) statistics for those counties (see <code>sf</code> documentation for more details, especially: <a href="https://r-spatial.github.io/spdep/articles/sids" class="uri">https://r-spatial.github.io/spdep/articles/sids</a> ). Here the original data is plotted as latitude/longitude format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)
 <span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</span>
-nc_original &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>))
+nc_original &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>))
 <span class="co">#&gt; Reading layer `nc' from data source `/Library/Frameworks/R.framework/Versions/3.5/Resources/library/sf/shape/nc.shp' using driver `ESRI Shapefile'</span>
 <span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span>
 <span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
@@ -111,29 +114,30 @@ nc_original &lt;-<span class="st"> </span><span class="kw"><a href="https://www.
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc &lt;-<span class="st"> </span>nc_original[<span class="dv">1</span>]
 <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc,<span class="dt">axes=</span>T)</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to transform the <code>sf</code> features (in this case the county shapes) into a “normalized” location so that the centre of each feature is at Easting 0m and Northing 0m.</p>
-<p>For this we use the <code>normalizeAroundCentroid</code> function. In some instances we might want to transform multiple features around a single centroid for the collection of features.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_normal_combined &lt;-<span class="st"> </span><span class="kw"><a href="../reference/normalizeAroundCentroid.html">normalizeAroundCentroid</a></span>(nc,<span class="dt">by.feature=</span>F)
-<span class="co">#&gt; Warning in normalizeAroundCentroid(nc, by.feature = F): Supplied sf object</span>
-<span class="co">#&gt; uses lat/long values, hence converted to Mercator; centroids may not be</span>
-<span class="co">#&gt; satisfactory</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc_normal_combined,<span class="dt">axes=</span>T)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="st">"red"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="st">"green"</span>)</code></pre></div>
+<div id="align" class="section level3">
+<h3 class="hasAnchor">
+<a href="#align" class="anchor"></a>1. Align</h3>
+<p>We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to <strong>align</strong> the <code>sf</code> features (in this case the county shapes) around a central point of the feature (often a centroid) to <code>0,0</code> using the unified coordinate system.</p>
+<p>For this we use the <code>align</code> function. In some instances we might want to transform multiple features around a single centroid for the entire collection of features.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_aligned_combined &lt;-<span class="st"> </span><span class="kw"><a href="../reference/align.html">align</a></span>(nc,<span class="dt">by.feature=</span>F)
+<span class="co">#&gt; Warning in align(nc, by.feature = F): Supplied sf object uses lat/long</span>
+<span class="co">#&gt; values, hence converted to Mercator; centroids may not be satisfactory</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc_aligned_combined,<span class="dt">axes=</span>T)</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, so set <code>by.feature</code> to <code>TRUE</code>. Here you can see that all of the counties are now overlapping around <code>0,0</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_normal &lt;-<span class="st"> </span><span class="kw"><a href="../reference/normalizeAroundCentroid.html">normalizeAroundCentroid</a></span>(nc,<span class="dt">by.feature=</span>T)
-<span class="co">#&gt; Warning in normalizeAroundCentroid(nc, by.feature = T): Supplied sf object</span>
-<span class="co">#&gt; uses lat/long values, hence converted to Mercator; centroids may not be</span>
-<span class="co">#&gt; satisfactory</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc_normal,<span class="dt">axes=</span>T)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">v=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="st">"red"</span>)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/abline">abline</a></span>(<span class="dt">h=</span><span class="dv">0</span>,<span class="dt">col=</span><span class="st">"green"</span>)</code></pre></div>
+<p>However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, so set <code>by.feature</code> to <code>TRUE</code> (teh default). Here you can see that all of the counties are now overlapping around <code>0,0</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nc_aligned &lt;-<span class="st"> </span><span class="kw"><a href="../reference/align.html">align</a></span>(nc,<span class="dt">by.feature=</span>T)
+<span class="co">#&gt; Warning in align(nc, by.feature = T): Supplied sf object uses lat/long</span>
+<span class="co">#&gt; values, hence converted to Mercator; centroids may not be satisfactory</span>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc_aligned,<span class="dt">axes=</span>T)</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>The next step is to re-distribute the features across space so that they can be compared visually. The <code>distribute</code> function calculates where each feature should be located on the comparative graph.</p>
-<p>Currently only one form of distribution is available, a regular grid based on the maximal bounding box of all features to calculate grid size. Future versions may allow better fitting of irregular features. This is the default type of distribution algorithm.</p>
+</div>
+<div id="distribute-regulargrid-method" class="section level3">
+<h3 class="hasAnchor">
+<a href="#distribute-regulargrid-method" class="anchor"></a>2. Distribute: <code>regulargrid</code> method</h3>
+<p>The next step is to <strong>re-distribute</strong> the features across space so that they can be compared visually. The <code>distribute</code> function calculates where each feature should be located on the comparative graph.</p>
+<p>Currently only one method of distribution is available, a regular grid (<code>regulargrid</code>) based on the maximal bounding box of all features to calculate grid size. This is the default type of distribution algorithm.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal),<span class="dt">col=</span>nc_normal<span class="op">$</span>AREA)</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned),<span class="dt">col=</span>nc_aligned<span class="op">$</span>AREA)</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>The regular grid algorithm has some customizations:</p>
 <ul>
@@ -141,38 +145,37 @@ nc_original &lt;-<span class="st"> </span><span class="kw"><a href="https://www.
 <code>margin</code>, <code>y.mar</code>, <code>x.mar</code> - These can be changed to adjust the margins between features. Note <code>y.mar</code> and <code>x.mar</code> are multiplied by <code>margin</code> to provide the individual x and y margin spacing. To override <code>y.mar</code> and <code>x.mar</code> manually, you must ensure <code>margin=1</code>. The values are in multiples of the bounding box heights or widths respectively. On the second version here, the x.margins are exaggerated which stretches out the distribution horizontally. Absolute dimensions of individual features in the dataset are preserved in both.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal, <span class="dt">margin=</span><span class="fl">1.5</span>))</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned, <span class="dt">margin=</span><span class="fl">1.5</span>))</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal, <span class="dt">margin=</span><span class="dv">1</span>, <span class="dt">x.mar=</span><span class="dv">2</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned, <span class="dt">margin=</span><span class="dv">1</span>, <span class="dt">x.mar=</span><span class="dv">2</span>))</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-8-2.png" width="700"></p>
 <ul>
 <li>
 <code>scale</code> - Used to adjust the scale of features (note that this directly affects the spatial dimensions of features, within the notional coordinate system, so this should be treated with caution).</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal, <span class="dt">scale=</span><span class="fl">0.3</span>))</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned, <span class="dt">scale=</span><span class="fl">0.3</span>))</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <ul>
 <li>
 <code>max.features</code>, <code>cols</code> / <code>rows</code>, <code>dir</code> - These control the dimensions of the grid; <code>max.features</code> is set to 200 by default; the function will only distribute a maximum of these features, or the actual number of features, whichever is less. By default, the direction of the distribution is left-to-right then top-to-bottom (<code>dir="v"</code>) and the square root of the features to distribute is used to count the number of columns; the number of columns can be manually adjust using <code>cols</code>. Alternatively, the direction of distribution can be top-to-bottom then left-to-right (<code>dir="h"</code>), in which case <code>rows</code> can be used to manually adjust the number of rows.</li>
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal, <span class="dt">dir=</span><span class="st">"h"</span>, <span class="dt">rows=</span><span class="dv">10</span>))</code></pre></div>
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned, <span class="dt">dir=</span><span class="st">"h"</span>, <span class="dt">rows=</span><span class="dv">10</span>))</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Often it is useful to sort the features by some attribute. This is best done before passing to <code><a href="../reference/distribute.html">distribute()</a></code>. For example to order these county shapes by total area, we simply use a normal <code><a href="https://www.rdocumentation.org/packages/base/topics/order">order()</a></code> selection, and here just distribute the first twenty of them. Naturally they can also be coloured by the same or different parameters.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(nc_normal<span class="op">$</span>AREA)),], <span class="dt">max.features=</span><span class="dv">20</span>, <span class="dt">margin=</span><span class="dv">2</span>),
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(nc_aligned<span class="op">$</span>AREA)),], <span class="dt">max.features=</span><span class="dv">20</span>, <span class="dt">margin=</span><span class="dv">2</span>),
      <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">sf.colors</a></span>(<span class="dv">20</span>), <span class="dt">border =</span> <span class="st">'grey'</span>)
-<span class="co">#&gt; Warning in distribute(nc_normal[rev(order(nc_normal$AREA)), ], max.features</span>
-<span class="co">#&gt; = 20, : There are more features than the value of max.features; only the</span>
-<span class="co">#&gt; first 20 features will be distributed</span></code></pre></div>
+<span class="co">#&gt; Warning in distribute(nc_aligned[rev(order(nc_aligned$AREA)), ],</span>
+<span class="co">#&gt; max.features = 20, : There are more features than the value of</span>
+<span class="co">#&gt; max.features; only the first 20 features will be distributed</span></code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>And probably we want to label the features, otherwise it may be difficult to identify them. Here we can call up the names of the counties and label them with text.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-nc_n2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/normalizeAroundCentroid.html">normalizeAroundCentroid</a></span>(nc_original,<span class="dt">by.feature=</span>T)
-<span class="co">#&gt; Warning in normalizeAroundCentroid(nc_original, by.feature = T): Supplied</span>
-<span class="co">#&gt; sf object uses lat/long values, hence converted to Mercator; centroids may</span>
-<span class="co">#&gt; not be satisfactory</span>
+nc_n2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/align.html">align</a></span>(nc_original,<span class="dt">by.feature=</span>T)
+<span class="co">#&gt; Warning in align(nc_original, by.feature = T): Supplied sf object uses lat/</span>
+<span class="co">#&gt; long values, hence converted to Mercator; centroids may not be satisfactory</span>
 distr_nc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_n2[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(nc_n2<span class="op">$</span>AREA)),], <span class="dt">max.features=</span><span class="dv">20</span>, <span class="dt">margin=</span><span class="dv">2</span>)
 <span class="co">#&gt; Warning in distribute(nc_n2[rev(order(nc_n2$AREA)), ], max.features = 20, :</span>
 <span class="co">#&gt; There are more features than the value of max.features; only the first 20</span>
@@ -183,6 +186,15 @@ distr_nc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/di
 <span class="co">#points(st_coordinates(st_centroid(st_geometry(distr_nc))))</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/text">text</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_coordinates">st_coordinates</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/geos_unary">st_centroid</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(distr_nc))),<span class="dt">labels=</span>distr_nc<span class="op">$</span>NAME,<span class="dt">cex=</span><span class="fl">0.5</span>)</code></pre></div>
 <p><img src="spatialcompare_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+<p><strong>Warning</strong>: the <code>distribute</code> function assumes that the input features have been normalized and treats each feature as a separate item. Don’t mix them up, otherwise you’ll get some really weird plots!…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
+<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_aligned_combined)), <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">sf.colors</a></span>(<span class="dv">20</span>, <span class="dt">categorical =</span> <span class="ot">TRUE</span>), <span class="dt">border =</span> <span class="st">'grey'</span>)</code></pre></div>
+<p><img src="spatialcompare_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
+</div>
+</div>
+<div id="exporting-values" class="section level2">
+<h2 class="hasAnchor">
+<a href="#exporting-values" class="anchor"></a>Exporting values</h2>
 <p>Naturally, the resulting <code>sf</code> objects or the plot can be exported as external files, or as PDFs, as below:-</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Export as shapefile (without CRS)</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_write">st_write</a></span>(distr_nc, <span class="st">"export.shp"</span>)
@@ -190,15 +202,11 @@ distr_nc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/di
 <span class="co"># Export PDF of plot for manual tweaking in other apps</span>
 <span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/pdf">pdf</a></span>(<span class="dt">file =</span><span class="st">"export.pdf"</span>, <span class="dt">width=</span><span class="dv">10</span>, <span class="dt">height=</span><span class="dv">10</span>)
   <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-  nc_n2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/normalizeAroundCentroid.html">normalizeAroundCentroid</a></span>(nc_original,<span class="dt">by.feature=</span>T)
+  nc_n2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/align.html">align</a></span>(nc_original,<span class="dt">by.feature=</span>T)
   distr_nc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_n2[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rev">rev</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/order">order</a></span>(nc_n2<span class="op">$</span>AREA)),], <span class="dt">max.features=</span><span class="dv">100</span>, <span class="dt">margin=</span><span class="fl">1.8</span>)
   <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(distr_nc), <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">sf.colors</a></span>(<span class="dv">20</span>, <span class="dt">categorical =</span> <span class="ot">TRUE</span>), <span class="dt">border =</span> <span class="st">'grey'</span>)
   <span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/text">text</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_coordinates">st_coordinates</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/geos_unary">st_centroid</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(distr_nc))),<span class="dt">labels=</span>distr_nc<span class="op">$</span>NAME,<span class="dt">cex=</span><span class="fl">0.5</span>)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/grDevices/topics/dev">dev.off</a></span>()</code></pre></div>
-<p><strong>Warning</strong>: the <code>distribute</code> function assumes that the input features have been normalized and treats each feature as a separate item. Don’t mix them up, otherwise you’ll get some really weird plots!…</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/graphics/topics/par">par</a></span>(<span class="dt">mar=</span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_geometry">st_geometry</a></span>(<span class="kw"><a href="../reference/distribute.html">distribute</a></span>(nc_normal_combined)), <span class="dt">col =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">sf.colors</a></span>(<span class="dv">20</span>, <span class="dt">categorical =</span> <span class="ot">TRUE</span>), <span class="dt">border =</span> <span class="st">'grey'</span>)</code></pre></div>
-<p><img src="spatialcompare_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
   </div>
 
@@ -209,6 +217,7 @@ distr_nc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/di
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#introduction">Introduction</a></li>
       <li><a href="#basics-how-to-use-this-package">Basics: How to Use this Package</a></li>
+      <li><a href="#exporting-values">Exporting values</a></li>
       </ul>
 </div>
       </div>

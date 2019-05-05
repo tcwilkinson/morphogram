@@ -1,7 +1,7 @@
 #' spatialcompare: A package to construct spatially-sensitive tableaux of spatial features.
 #'
 #' The spatialcompare package provides two main functions:
-#' normalizeAroundCentroid, and distribute.
+#' align, and distribute.
 #'
 #' @section spatialcompare functions:
 #' Constructing a spatialcompare graph requires two steps: 1. transforming the spatial features so

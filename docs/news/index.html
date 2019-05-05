@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>normalizeAroundCentroid — normalizeAroundCentroid • spatialcompare</title>
+<title>Changelog • spatialcompare</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,13 +30,7 @@
 
 
 
-<meta property="og:title" content="normalizeAroundCentroid — normalizeAroundCentroid" />
-
-<meta property="og:description" content="This function finds the centroid of a set of sf-based features and reprojects them so that each feature's
-centroid lies at the centre (0,0) of an arbitrary metre-based mercator projection. The resulting featuresh
-are thus projected overlapping at the same scale, which can be visually compared. Note that the resulting
-sf object has no CRS." />
-<meta name="twitter:card" content="summary" />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -53,7 +47,7 @@ sf object has no CRS." />
   </head>
 
   <body>
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -66,7 +60,7 @@ sf object has no CRS." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">spatialcompare</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
 
@@ -83,6 +77,9 @@ sf object has no CRS." />
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -105,67 +102,28 @@ sf object has no CRS." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>normalizeAroundCentroid</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tcwilkinson/spatialcompare/blob/master/R/normalizeAroundCentroid.R'><code>R/normalizeAroundCentroid.R</code></a></small>
-    <div class="hidden name"><code>normalizeAroundCentroid.Rd</code></div>
+      <h1>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/tcwilkinson/spatialcompare/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    
-    <p>This function finds the centroid of a set of sf-based features and reprojects them so that each feature's
-centroid lies at the centre (0,0) of an arbitrary metre-based mercator projection. The resulting featuresh
-are thus projected overlapping at the same scale, which can be visually compared. Note that the resulting
-sf object has no CRS.</p>
-    
-    </div>
-
-    <pre class="usage"><span class='fu'>normalizeAroundCentroid</span>(<span class='no'>x</span>, <span class='kw'>by.feature</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>combine</span> <span class='kw'>=</span> <span class='no'>F</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.</p></td>
-    </tr>
-    <tr>
-      <th>by.feature</th>
-      <td><p>Whether to reproject by single features by individual feature centroids, T,
-or reproject all features by a single centroid of the union of all features, F; default=TRUE.</p></td>
-    </tr>
-    <tr>
-      <th>combine</th>
-      <td><p>Combine multiple geometries into one; default=F.</p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>An sf object containing one or more features (with no defined CRS)</p>
-    
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>To visually distribute the resulting features, use the `distribute` function.</p>
-    
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='distribute.html'>distribute</a></code></p></div>
-    
-
+    <div id="spatialcompare-0-1-0-beta" class="section level1">
+<h1 class="page-header">
+<a href="#spatialcompare-0-1-0-beta" class="anchor"></a>spatialcompare 0.1.0-beta</h1>
+<ul>
+<li>First release; with single form of <code>distribute</code> method (<code>regulargrid</code>)</li>
+</ul>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#details">Details</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-          </ul>
-
+    <div id="tocnav">
+      <h2>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#spatialcompare-0-1-0-beta">0.1.0</a></li>
+      </ul>
+    </div>
   </div>
+
 </div>
 
       <footer>

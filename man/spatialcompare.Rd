@@ -7,7 +7,7 @@
 \title{spatialcompare: A package to construct spatially-sensitive tableaux of spatial features.}
 \description{
 The spatialcompare package provides two main functions:
-normalizeAroundCentroid, and distribute.
+align, and distribute.
 }
 \section{spatialcompare functions}{
 

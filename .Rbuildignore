@@ -8,3 +8,6 @@ images/*
 docs
 cran-comments.md
 NEWS.md
+TODO.md
+^README\.Rmd$
+BUILDNOTES.md

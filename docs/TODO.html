@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • spatialcompare</title>
+<title>NA • spatialcompare</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -25,12 +25,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="NA" />
 
 
 
@@ -47,7 +47,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -59,7 +59,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">spatialcompare</a>
+        <a class="navbar-link" href="index.html">spatialcompare</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
       </span>
     </div>
@@ -67,19 +67,19 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fa fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/spatialcompare.html">Get started</a>
+  <a href="articles/spatialcompare.html">Get started</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -100,21 +100,37 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Articles</h1>
+      <h1>NA</h1>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="spatialcompare.html">Getting started with `spatialcompare`: Ordered Tableau and Comparison of Simple Features</a></li>
-      </ul>
-    </div>
-  </div>
+<div id="potential-future-improvements-to-do-list" class="section level2">
+<h2 class="hasAnchor">
+<a href="#potential-future-improvements-to-do-list" class="anchor"></a>Potential future improvements (TO DO LIST)</h2>
+<ul>
+<li>Offer alternative centre points for <code>align</code>, such as st_point_in_polygon (<code>method=c("centroid","pip")</code>).</li>
+<li>Offer to normalize dimensions of features, with st_normalize, so that full features fit within space of 0,1. (In this case, dimensions are lost, but shape is preserved.)</li>
+<li>Improve documentation, especially around the transformation of source spatial features which are in latlong projection in <code>align</code>.</li>
+<li>Provide alternative transformation of source features in latlong projection? (e.g. alternative target <code>crs</code>?)</li>
+<li>Additional <code>distribute</code> algorithms (e.g. no-fit polygon) which translate from normalized to distributed tableaus in different ways
+<ul>
+<li>
+<code>regularstacks</code> - rather than filling rows or columns, this method would stack according to certain classificatory criteria, e.g. classifying parameters such as polygon area. (<code>group.by="AREA"</code>, <code>margin=1</code>). Could be used as basis for spatial-icon-based “bar charts”, with features optionally normalized.</li>
+<li>
+<code>nofitpoly</code> - using methods used to enable efficient cutting out irregular polygons from materials such as cloth or metal, this method would use a user-defined buffer around polygons to find optimal translation matrices to fit all (buffered) polygons together, approximating a tesselation. (<code>buffer=1.5</code>).</li>
+</ul>
+</li>
+<li>Integration with <code>cartogram</code> package.</li>
+<li><p>Convenience functions for processing and plotting as one-liner (e.g. <code>plot.sc.regulargrid</code>, <code>plot.sc.spatialbarplot</code>)</p></li>
+<li><p>Optimisation of code (e.g. replacement of for loops on sf objects with faster alternatives?); low priority as it’s actually fast enough.</p></li>
+</ul>
 </div>
+
+  </div>
+
+</div>
+
 
       <footer>
       <div class="copyright">
