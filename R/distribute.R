@@ -17,6 +17,7 @@
 #' @param x.mar Scalar coefficient of spacing between x values; default 1.
 #' @param y.mar Scalar coefficient of spacing between x values; default 1.
 #' @param scale Affine scaling of feature dimensions; default 1.
+#' @param angle Affine rotation of feature in degrees; default 0.
 #' @seealso \code{\link{normalizeAroundCentroid}}
 #' @return An sf object containing one or more features (with no defined CRS)
 #' @example
@@ -29,7 +30,7 @@ distribute <- function(x, preserve.parameters=T,
                        type="regulargrid", cols=NULL, rows=NULL,
                        dir="v", max.features=200,
                        margin=1.2, x.mar=1, y.mar=1,
-                       scale=1
+                       scale=1, angle=0
                        ) {
   type <- "regulargrid" # FORCE regular.grid as this is the only supported method type
 
@@ -83,14 +84,19 @@ distribute <- function(x, preserve.parameters=T,
         pos_x <- ceiling(i/rows)
         pos_y <- i %% rows
       }
+      # Rotation should be done before other translation to ensure it is done around origin
+      rotate = function(a){
+        r = a * pi / 180 #degrees to radians
+        matrix(c(cos(r), sin(r), -sin(r), cos(r)), nrow = 2, ncol = 2)
+      }
       affine_transform <- c(x_multiplier*pos_x , y_multiplier*pos_y)
       if(isTRUE(preserve.parameters)) {
         d[[i]] <- sf::st_sf(
           data.frame( sf::st_drop_geometry(x[i,]),
-                      geom=sf::st_sf( (sf::st_geometry(x[i,]) * scale) + affine_transform) )
+                      geom=sf::st_sf( (sf::st_geometry(x[i,]) * scale * rotate(angle)) + affine_transform) )
           )
       } else {
-        d[[i]] <- sf::st_sf((sf::st_geometry(x[i,]) * scale) + affine_transform)
+        d[[i]] <- sf::st_sf((sf::st_geometry(x[i,]) * scale * rotate(angle)) + affine_transform)
       }
     }
     d <- sf::st_sf(do.call(rbind,d))

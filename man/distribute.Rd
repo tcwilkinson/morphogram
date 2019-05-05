@@ -6,7 +6,7 @@
 \usage{
 distribute(x, preserve.parameters = T, type = "regulargrid",
   cols = NULL, rows = NULL, dir = "v", max.features = 200,
-  margin = 1.2, x.mar = 1, y.mar = 1, scale = 1)
+  margin = 1.2, x.mar = 1, y.mar = 1, scale = 1, angle = 0)
 }
 \arguments{
 \item{x}{An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.}
@@ -30,6 +30,8 @@ distribute(x, preserve.parameters = T, type = "regulargrid",
 \item{y.mar}{Scalar coefficient of spacing between x values; default 1.}
 
 \item{scale}{Affine scaling of feature dimensions; default 1.}
+
+\item{angle}{Affine rotation of feature in degrees; default 0.}
 }
 \value{
 An sf object containing one or more features (with no defined CRS)
