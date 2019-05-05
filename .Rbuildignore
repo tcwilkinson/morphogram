@@ -5,3 +5,6 @@ images/*
 ^doc$
 ^Meta$
 ^\.travis\.yml$
+docs
+cran-comments.md
+NEWS.md

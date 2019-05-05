@@ -1,50 +1,15 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-
-r:
-  - release
-  - devel
-  - oldrel
-
-deploy.skip_cleanup: true
-
-sudo: required
+r: devel
 dist: trusty
+sudo: required
+cache: packages
+after_success:
+- Rscript -e 'covr::codecov(type = "all")'
 
-cache:
-  - packages
-  - ccache
-
-latex: false
-
-r_github_packages:
-  - r-dbi/DBI
-  - r-dbi/RPostgres
-  - r-lib/covr
-  - r-spatial/lwgeom
-  - r-spatial/stars
-  - r-spatial/sf
-
-addons:
-  postgresql: "9.6"
-  apt:
-    sources:
-      - sourceline: 'ppa:opencpu/jq'
-      - sourceline: 'ppa:ubuntugis/ubuntugis-unstable'
-      - sourceline: 'deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main'
-        key_url: 'https://www.postgresql.org/media/keys/ACCC4CF8.asc'
-    packages:
-      - libprotobuf-dev
-      - protobuf-compiler
-      - libv8-3.14-dev
-      - libjq-dev
-      - libudunits2-dev
-      - libproj-dev
-      - libgeos-dev
-      - libspatialite-dev
-      - libgdal-dev
-      - libjson-c-dev
-      - libnetcdf-dev
-      - netcdf-bin
-- postgresql-server-dev-9.6
+## for sf
+before_install:
+  - sudo add-apt-repository ppa:ubuntugis/ppa --yes
+  - sudo apt-get --yes --force-yes update -qq
+  - sudo apt-get install --yes libudunits2-dev libproj-dev libgeos-dev libgdal-dev
