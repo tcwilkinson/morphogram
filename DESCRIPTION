@@ -1,13 +1,15 @@
 Package: spatialcompare
 Type: Package
-Title: Visual Tableau and Comparison of Spatial Features Preserving Accurate Spatial Dimensions
-Version: 0.1.0
-Author: Toby Wilkinson
-Maintainer: Toby Wilkinson <open@tobywilkinson.co.uk>
+Title: Visual Tableaux to Compare Spatial Features
+Version: 0.1.1
+Authors@R:
+    person("Toby", "Wilkinson", email = "open@tobywilkinson.co.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4905-0522"))
 URL: https://tcwilkinson.github.io/spatialcompare, https://github.com/tcwilkinson/spatialcompare
-Description: This package designed to facilitate the construction of infographic tableau of diverse spatial features side-by-side.
-   The package aims to preserve the accurate spatial dimensions of the features while translating their spatial position to allow visual comparison. 
-   Applications include visual comparison of the dimensions of modern or ancient cities, study regions or building sizes in two dimensional space. 
+BugReports: https://github.com/tcwilkinson/spatialcompare/issues
+Description: Support to construct side-by-side tableaux ("infographics") of diverse spatial 
+   features, especially polygons. Projected spatial dimensions are preserved. 
+   Possible applications include visualization and comparison of dimensions of ancient and 
+   modern cities, or scientific study regions.
 License: CC BY-SA 4.0
 Encoding: UTF-8
 LazyData: true
