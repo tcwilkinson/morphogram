@@ -1,5 +1,5 @@
 ---
-title: "Getting started with `spatialcompare`: Ordered Tableau and Comparison of Simple Features"
+title: "Getting Started with `spatialcompare`: Ordered Tableaux for Simple Features"
 author: "Toby C. Wilkinson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
@@ -54,22 +54,22 @@ nc <- nc_original[1]
 plot(nc,axes=T)
 ```
 
-### 1. Align
+### 1. Converge
 
-We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to **align** the `sf` features (in this case the county shapes) around a central point of the feature (often a centroid) to `0,0` using the unified coordinate system. 
+We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to **converge** the `sf` features (in this case the county shapes) around a central point of the feature (often a centroid) to `0,0` using a unified coordinate system. 
 
-For this we use the `align` function. In some instances we might want to transform multiple features around a single centroid for the entire collection of features.
+For this we use the `converge` function. In some instances we might want to transform multiple features around a single centroid for the entire collection of features:-
 
 ```{r }
-nc_aligned_combined <- align(nc,by.feature=F)
-plot(nc_aligned_combined,axes=T)
+nc_converged_combined <- converge(nc,by.feature=F)
+plot(nc_converged_combined,axes=T)
 ```
 
-However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, so set `by.feature` to `TRUE` (teh default). Here you can see that all of the counties are now overlapping around `0,0`.
+However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, `by.feature` should be `TRUE` (the default). Here you can see that all of the counties are now overlapping around `0,0`.
 
 ```{r }
-nc_aligned <- align(nc,by.feature=T)
-plot(nc_aligned,axes=T)
+nc_converged <- converge(nc) # which is the same as:   converge(nc,by.feature=T)
+plot(nc_converged,axes=T)
 ```
 
 ### 2. Distribute: `regulargrid` method
@@ -80,7 +80,7 @@ Currently only one method of distribution is available, a regular grid (`regular
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(distribute(nc_aligned),col=nc_aligned$AREA)
+plot(distribute(nc_converged),col=nc_converged$AREA)
 ```
 
 The regular grid algorithm has some customizations:
@@ -89,29 +89,31 @@ The regular grid algorithm has some customizations:
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(distribute(nc_aligned, margin=1.5))
-plot(distribute(nc_aligned, margin=1, x.mar=2))
+plot(distribute(nc_converged, margin=1.5))
+plot(distribute(nc_converged, margin=1, x.mar=2))
 ```
 
-- `scale` - Used to adjust the scale of features (note that this directly affects the spatial dimensions of features, within the notional coordinate system, so this should be treated with caution).
+- `scale` - Used to adjust the global scale of features (note that this directly affects the spatial dimensions of features _after_ the distribution, so features may begin to overlap when >1, or margins appear to growth when <1). Use the separate `scale()` function instead if you need to scale features before distribution.
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(distribute(nc_aligned, scale=0.3))
+plot(distribute(nc_converged, scale=0.3))
 ```
 
 - `max.features`, `cols` / `rows`, `dir` - These control the dimensions of the grid; `max.features` is set to 200 by default; the function will only distribute a maximum of these features, or the actual number of features, whichever is less. By default, the direction of the distribution is left-to-right then top-to-bottom (`dir="v"`) and the square root of the features to distribute is used to count the number of columns; the number of columns can be manually adjust using `cols`. Alternatively, the direction of distribution can be top-to-bottom then left-to-right (`dir="h"`), in which case `rows` can be used to manually adjust the number of rows.
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(distribute(nc_aligned, dir="h", rows=10))
+plot(distribute(nc_converged, dir="h", rows=10))
 ```
 
-Often it is useful to sort the features by some attribute. This is best done before passing to `distribute()`. For example to order these county shapes by total area, we simply use a normal `order()` selection, and here just distribute the first twenty of them. Naturally they can also be coloured by the same or different parameters.
+## Ordering distributions
+
+Often it is useful to sort the features by some attribute. This is best done before passing to `converge()` or `distribute()`. For example to order these county shapes by total area, we simply use a normal `order()` selection, and here just distribute the first twenty of them. Naturally they can also be coloured by the same or different parameters.
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(distribute(nc_aligned[rev(order(nc_aligned$AREA)),], max.features=20, margin=2),
+plot(distribute(nc_converged[rev(order(nc_converged$AREA)),], max.features=20, margin=2),
      col = sf.colors(20), border = 'grey')
 ```
 
@@ -119,7 +121,7 @@ And probably we want to label the features, otherwise it may be difficult to ide
 
 ```{r }
 par(mar=c(0,0,0,0))
-nc_n2 <- align(nc_original,by.feature=T)
+nc_n2 <- converge(nc_original,by.feature=T)
 distr_nc <- distribute(nc_n2[rev(order(nc_n2$AREA)),], max.features=20, margin=2)
 # Just plot
 plot(st_geometry(distr_nc), col = sf.colors(20, categorical = TRUE), border = 'grey')
@@ -132,12 +134,14 @@ text(st_coordinates(st_centroid(st_geometry(distr_nc))),labels=distr_nc$NAME,cex
 
 ```{r }
 par(mar=c(0,0,0,0))
-plot(st_geometry(distribute(nc_aligned_combined)), col = sf.colors(20, categorical = TRUE), border = 'grey')
+plot(st_geometry(distribute(nc_converged_combined)), col = sf.colors(20, categorical = TRUE), border = 'grey')
 ```
 
-## Exporting values
+## Exporting distributed features
 
-Naturally, the resulting `sf` objects or the plot can be exported as external files, or as PDFs, as below:-
+Naturally, the resulting `sf` objects can be exported as external spatial data files and the plot can be exported as PDF to allow manual fine tuning in vector graphics editors. 
+
+Note, of course, that resulting spatial exports (e.g. shapefiles) have no globally-meaningful CRS (coordinate reference system), and should instead be treated as "local" coordinates. 
 
 ```r
 # Export as shapefile (without CRS)
@@ -146,13 +150,61 @@ st_write(distr_nc, "export.shp")
 # Export PDF of plot for manual tweaking in other apps
 pdf(file ="export.pdf", width=10, height=10)
   par(mar=c(0,0,0,0))
-  nc_n2 <- align(nc_original,by.feature=T)
+  nc_n2 <- converge(nc_original,by.feature=T)
   distr_nc <- distribute(nc_n2[rev(order(nc_n2$AREA)),], max.features=100, margin=1.8)
   plot(st_geometry(distr_nc), col = sf.colors(20, categorical = TRUE), border = 'grey')
   text(st_coordinates(st_centroid(st_geometry(distr_nc))),labels=distr_nc$NAME,cex=0.5)
 dev.off()
 ```
 
+## Visualizing the relative size of countries 
+
+There are many public sources of spatial polygons with recognisable shapes, such as national boundaries. Here the  boundaries of four countries are imported from `rnaturalearth`, re-convergeed, their geometric area calculated and then distributed as a grid in order of increasing area.
+
+```{r }
+library("rnaturalearth")
+uk <- st_as_sf(ne_countries(country = 'united kingdom', scale = 'medium'))["name_en"]
+it <- st_as_sf(ne_countries(country = 'italy', scale = 'medium'))["name_en"]
+ru <- st_as_sf(ne_countries(country = 'russia', scale = 'medium'))["name_en"]
+ni <- st_as_sf(ne_countries(country = 'nigeria', scale = 'medium'))["name_en"]
+compare_countries <- rbind(ru,it,uk,ni)
+library("lwgeom") # for area calculations
+compare_countries$area <- st_area(compare_countries)
+
+compare_countries <- converge(compare_countries)
+plot(compare_countries[1], main="Converged country shapes",
+     col=sf.colors(4, alpha = 0.5, categorical = TRUE), cex.main=0.4, border = 'darkgrey')
+
+plot(distribute(compare_countries[order(compare_countries$area),])[1], main="Re-distributed country shapes (by area)",
+     col=sf.colors(4, alpha = 0.5, categorical = TRUE), cex.main=0.4, border = 'darkgrey')
+
+```
 
 
+```{r }
+library("rnaturalearth")
+urban_areas_src <- ne_download(scale = 50, type = "urban_areas", load = TRUE, returnclass="sf")
+urban_areas <- urban_areas_src[3]
+
+populated_places_src <- ne_download(scale = 50, type = "populated_places", load = TRUE, returnclass="sf")
+populated_places <- populated_places_src[c("name_en","ISO_A2")]
+
+ua <- st_intersects(urban_areas,populated_places)
+ua2 <- st_intersection(populated_places,urban_areas)
+
+compare_urban <- converge(urban_areas)
+plot(compare_urban, main="Converged global urban areas",
+     col=sf.colors(4, alpha = 0.1, categorical = TRUE), cex.main=0.4, border = 'darkgrey')
+
+distr_urban <- distribute(compare_urban[rev(order(compare_urban$area_sqkm)),], max.features = 120, cols=18)
+plot(distr_urban, 
+     main="Re-distributed cities",
+     col=sf.colors(4, alpha = 0.5, categorical = TRUE), cex.main=0.4, border = 'darkgrey')
+
+text(st_coordinates(st_centroid(st_geometry(distr_urban))),labels=distr_urban,cex=0.5)
+
+```
+
+
+## Visualising the growth of cities
 

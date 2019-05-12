@@ -9,7 +9,7 @@
 #' @param preserve.parameters Whether to preserve non-geometry parameters; default T.
 #' @param method Method used to distribute features; default and only functioning method is "regulargrid".
 #' @param dir Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first; default "v".
-#' @param max.features Maximum features to compare; default=200.
+#' @param max.features Maximum features to compare; default=Inf.
 #' @param cols Number of columns of features to plot before moving onto next line if dir="v".
 #' @param rows Number of rows of features to plot before moving onto next line if dir="h".
 #' @param margin Scalar coefficient of spacing between features; default 1.2.
@@ -17,7 +17,7 @@
 #' @param y.mar Scalar coefficient of spacing between x values; default 1.
 #' @param scale Affine scaling of feature dimensions; default 1.
 #' @param angle Affine rotation of feature in degrees; default 0.
-#' @seealso \code{\link{align}}
+#' @seealso \code{\link{converge}}
 #' @return An sf object containing one or more features (with no defined CRS)
 #' @example
 #' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
@@ -52,18 +52,20 @@ distribute <- function(x, preserve.parameters=T,
   bbox <- as.data.frame(do.call(rbind,bbox))
   bbox$diff_x <- bbox$xmax - bbox$xmin
   bbox$diff_y <- bbox$ymax - bbox$ymin
-  max_x <- max(bbox$diff_x)
-  max_y <- max(bbox$diff_y)
-  min_x <- min(bbox$diff_x)
-  min_y <- min(bbox$diff_y)
-  ratio_x <- (max_x/min_x)
-  ratio_y <- (max_y/min_y)
+  widest_bb   <- max(bbox$diff_x)
+  tallest_bb  <- max(bbox$diff_y)
+  thinnest_bb <- min(bbox$diff_x)
+  shortest_bb <- min(bbox$diff_y)
+  ratio_x <- (widest_bb/thinnest_bb)
+  ratio_y <- (tallest_bb/shortest_bb)
   if ((ratio_x > 100) || (ratio_y > 100)) {
-    warning("The ratio of largest to smallest objects is very high, the resulting visualisation may be difficult to comprehend")
+    warning("Friendly advice: the ratio of largest to smallest objects is very high, the resulting visualisation may be difficult to comprehend")
   }
 
   ## regulargrid - Calculate centre point to translate objects to, based on a regular grid using maximal extent of bounding boxes
   if(method=="regulargrid") {
+    grid_x <- max(bbox$xmax,(bbox$xmin*-1))
+    grid_y <- max(bbox$ymax,(bbox$ymin*-1))
     d <- NULL
     if (is.null(cols)) { cols = ceiling(sqrt(max.features)) }
     cols <- as.numeric(cols)
@@ -72,8 +74,8 @@ distribute <- function(x, preserve.parameters=T,
     rows <- as.numeric(rows)
     if (rows>max.features) { rows = max.features }
 
-    x_multiplier <- (max_x/2) * (x.mar * margin) # left to right
-    y_multiplier <- (max_y/2) * -(y.mar * margin) # top to bottom
+    x_multiplier <- round( (grid_x) * -(x.mar * margin), digits=-1 ) # left to right
+    y_multiplier <- round( (grid_y) * -(y.mar * margin), digits=-1 ) # top to bottom
     d <- list()
     for (i in seq(1:max.features)) {
       if (dir=="v") {

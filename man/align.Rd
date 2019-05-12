@@ -4,30 +4,28 @@
 \alias{align}
 \title{align}
 \usage{
-align(x, by.feature = T, combine = F)
+align(x, method = "centroid")
 }
 \arguments{
-\item{x}{An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.}
+\item{x}{An sf object, already processed with `converge`, to be transformed in alignment; REQUIRED.}
 
-\item{by.feature}{Whether to reproject by single features by individual feature centroids, T,
-or reproject all features by a single centroid of the union of all features, F; default=TRUE.}
-
-\item{combine}{Combine multiple geometries into one, using st_combine; default=F.}
+\item{method}{Method used to align "top", "bottom", "left", "right", "vcentre", "hcentre";
+"vcentroid", "hcentroid", "centroid"; default="centroid".}
 }
 \value{
 An sf object containing one or more features (with no defined CRS)
 }
 \description{
-This function finds the centroid of a set of sf-based features and reprojects them so that each feature's
-centroid lies at the centre (0,0) of an arbitrary metre-based mercator projection. The resulting featuresh
-are thus projected overlapping at the same scale, which can be visually compared. Note that the resulting
-sf object has no CRS.
+NOT YET IMPLEMENTED
+This function aligns simple features spatially by bounding box or centroid values.
+Bounding box alignment or justification types include: top, bottom, left, right, vcentre, hcentre.
+Centroid alignment include: vcentroid, hcentroid, centroid
 }
 \details{
 To visually distribute the resulting features, use the `distribute` function.
 }
 \seealso{
-\code{\link{distribute}}
+\code{\link{converge}}, \code{\link{normalize}}, \code{\link{scale}}, \code{\link{distribute}}
 }
 \keyword{cartogram,}
 \keyword{infographic}

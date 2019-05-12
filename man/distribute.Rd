@@ -21,7 +21,7 @@ distribute(x, preserve.parameters = T, method = "regulargrid",
 
 \item{dir}{Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first; default "v".}
 
-\item{max.features}{Maximum features to compare; default=200.}
+\item{max.features}{Maximum features to compare; default=Inf.}
 
 \item{margin}{Scalar coefficient of spacing between features; default 1.2.}
 
@@ -44,5 +44,5 @@ The spatial features should be centred around 0,0. Use `align` to align differen
 sets of simple spatial features around 0,0.
 }
 \seealso{
-\code{\link{align}}
+\code{\link{converge}}
 }
