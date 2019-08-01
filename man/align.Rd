@@ -9,7 +9,7 @@ align(x, method = "centroid")
 \arguments{
 \item{x}{An sf object, already processed with `converge`, to be transformed in alignment; REQUIRED.}
 
-\item{method}{Method used to align "top", "bottom", "left", "right", "vcentre", "hcentre";
+\item{method}{Method used to align "top", "bottom", "left", "right";
 "vcentroid", "hcentroid", "centroid"; default="centroid".}
 }
 \value{

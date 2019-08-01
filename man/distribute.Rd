@@ -29,9 +29,9 @@ distribute(x, preserve.parameters = T, method = "regulargrid",
 
 \item{y.mar}{Scalar coefficient of spacing between x values; default 1.}
 
-\item{scale}{Affine scaling of feature dimensions; default 1.}
+\item{scale}{Affine linear scaling of ALL feature dimensions, this is not areal scaling; default 1.}
 
-\item{angle}{Affine rotation of feature in degrees; default 0.}
+\item{angle}{Affine rotation of ALL feature in degrees; default 0.}
 }
 \value{
 An sf object containing one or more features (with no defined CRS)
@@ -40,8 +40,12 @@ An sf object containing one or more features (with no defined CRS)
 This function spatially distributes a set of sf features.
 }
 \details{
-The spatial features should be centred around 0,0. Use `align` to align different
-sets of simple spatial features around 0,0.
+The spatial features should be aligned around 0,0 for meaningful results.
+First use `converge` to bring together diversely distributed polygons around a single origin.
+Use `align` to align different sets of simple spatial features around the origin.
+
+Note that to rotate or scale features individually, you can use the `rotate` and `scale`
+methods with a vector parameters.
 }
 \seealso{
 \code{\link{converge}}

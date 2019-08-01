@@ -5,11 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Visual Tableaux to Compare Spatial Features • spatialcompare</title>
+<title>Morphogram Tableaux to Compare Spatial Features Visually • morphogram</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Visual Tableaux to Compare Spatial Features">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script><meta property="og:title" content="Morphogram Tableaux to Compare Spatial Features Visually">
 <meta property="og:description" content='Support to construct side-by-side tableaux ("infographics") of diverse spatial 
    features, especially polygons. Projected spatial dimensions are preserved. 
    Possible applications include visualization and comparison of dimensions of ancient and 
@@ -32,8 +33,8 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">spatialcompare</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <a class="navbar-link" href="index.html">morphogram</a>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -41,15 +42,24 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="articles/spatialcompare.html">Get started</a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/gettingstarted_morphogram.html">Getting Started with `morphogram`: Ordered Tableaux for Simple Features</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="news/index.html">Changelog</a>
@@ -57,8 +67,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/tcwilkinson/spatialcompare">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/tcwilkinson/morphogram">
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -71,6 +81,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     
@@ -78,32 +89,39 @@
     
     
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-<div id="spatialcompare-create-comparative-infographics-using-simple-spatial-features" class="section level1">
+<!-- use pkgdown::build_site() to regenerate -->
+<div id="morphogram" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#spatialcompare-create-comparative-infographics-using-simple-spatial-features" class="anchor"></a><code>spatialcompare</code>: Create comparative infographics using simple (spatial) features</h1></div>
+<a href="#morphogram" class="anchor"></a><code>morphogram</code> <img align="right" src="reference/figures/morphogram-logo.png" style="height: 150px; width= 150px;">
+</h1></div>
 <!-- badges: start -->
 
-<p>This R-package is designed to facilitate the construction of infographics which place spatial features side-by-side, for example <em>to compare visually the dimensions of cities, study regions or building sizes in two dimensional space</em>. The package aims to preserve the accurate or recognisable <strong>shapes</strong> (and by default, the <strong>dimensions</strong>) of the features to make them recognisable but transpose their spatial <em>position</em> so that they are distributed visually. When spatial <em>dimensions</em> are preserved, further spatial analysis (e.g. area calculations) or the additional of scale bars can be accurately plotted.</p>
+<ul>
+<li>Version: 0.3.0 (beta).</li>
+<li>Author: Toby C. Wilkinson.</li>
+<li>Date of this README document: 2019-08-01.</li>
+</ul>
+<p>This R-package is designed to facilitate the construction of “morphogram”-based infographics which place dispersed spatial features side-by-side, for example <em>to compare visually the shapes or dimensions of cities, study regions or building sizes in two dimensional space</em>. The package aims to preserve recognisable or accurate <strong>shapes</strong> (and by default, the linear <strong>dimensions</strong>) of the features to allow human recognition, but transpose their spatial <em>position</em> so that they are distributed in a visually understandable way. When spatial <em>dimensions</em> are preserved, further spatial analysis (e.g. area calculations) or the additional of scale bars can be accurately plotted.</p>
 <p>Functions rely on <code>sf</code> objects as inputs and outputs, hence the primary dependency of this package is <code>sf</code>. The use of <code>sf</code> objects provides maximum flexibility for ultimate graphics output; users can use base graphics or alternatives such as <code>ggplot</code> according to need or preference with the resulting reprojected and translated <code>sf</code> features.</p>
 <p>Although theoretically any <code>sf</code>-compatible spatial features can be processed with this package, the most likely application is the orientation of polygons in a way that their relative size can be easily compared.</p>
-<p>The original use-case was the visualization of the relative size of scientific study regions of different archaeological surveys and the relative size of ancient cities.</p>
+<p>The original design use-case was archaeological, namely the visualization of the relative size of study regions of different archaeological surveys, ancient theatre plans and the relative size of ancient cities.</p>
 <div class="figure">
 <img src="reference/figures/sample_nc.png" alt="Sample of compared polygons from the sf nc data-set"><p class="caption">Sample of compared polygons from the sf nc data-set</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>This package relies on the <code>sf</code> package for calculating geometries and handling spatial data. Depending on the platform you are using, you may need to install GDAL and other dependencies before using <code>sf</code> and <code>spatialcompare</code>. Read the <code>sf</code> documentation for more information: <a href="https://github.com/r-spatial/sf/">see sf README on GitHub</a>.</p>
+<p>This package relies on the <code>sf</code> package for calculating geometries and handling spatial data. Depending on the platform you are using, you may need to install GDAL and other dependencies before using <code>sf</code> and <code>morphogram</code>. Read the <code>sf</code> documentation for more information: <a href="https://github.com/r-spatial/sf/">see sf README on GitHub</a>.</p>
 <!--
-You cannot yet install the released version of spatialcompare from [CRAN](https://CRAN.R-project.org) with:
+You cannot yet install the released version of morphogram from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("spatialcompare")
+install.packages("morphogram")
 ```
 -->
-<p>You can install the current development version of <code>spatialcompare</code> from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.packages("devtools")</span>
-devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"tcwilkinson/spatialcompare"</span>)</code></pre></div>
+<p>You can install the current development version of <code>morphogram</code> from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"tcwilkinson/morphogram"</span>)</a></code></pre></div>
 </div>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
@@ -111,42 +129,49 @@ devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumen
 <ul>
 <li>Aligning, distributing and plotting North Carolina districts as a grid</li>
 </ul>
-<p>This example shows you how to align, distribute and then plot a set of simple (spatial) features using data distributed with the <code>sf</code> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(sf)
-<span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(spatialcompare)
-
-<span class="co"># load polygon data from the sf package</span>
-nc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/st_read">st_read</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>))
-<span class="co">#&gt; Reading layer `nc' from data source `/Library/Frameworks/R.framework/Versions/3.5/Resources/library/sf/shape/nc.shp' using driver `ESRI Shapefile'</span>
-<span class="co">#&gt; Simple feature collection with 100 features and 14 fields</span>
-<span class="co">#&gt; geometry type:  MULTIPOLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -84.32385 ymin: 33.88199 xmax: -75.45698 ymax: 36.58965</span>
-<span class="co">#&gt; epsg (SRID):    4267</span>
-<span class="co">#&gt; proj4string:    +proj=longlat +datum=NAD27 +no_defs</span>
-<span class="co"># align polygons around origin</span>
-nc_aligned &lt;-<span class="st"> </span><span class="kw"><a href="reference/align.html">align</a></span>(nc,<span class="dt">by.feature=</span>T)
-<span class="co"># distribute polygons into regular grid</span>
-nc_distributed &lt;-<span class="st"> </span><span class="kw"><a href="reference/distribute.html">distribute</a></span>(nc_aligned, <span class="dt">margin=</span><span class="dv">1</span>, <span class="dt">x.mar=</span><span class="dv">2</span>)
-<span class="co"># plot resulting distributed features</span>
-<span class="co"># optional: select first parameter, this is just for clarity of the final plot</span>
-nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <span class="co"># AREA</span>
-<span class="kw"><a href="https://www.rdocumentation.org/packages/sf/topics/plot">plot</a></span>(nc_d)</code></pre></div>
+<p>This example shows you how to converge, distribute and then plot a set of simple (spatial) features using data distributed with the <code>sf</code> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(sf)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Linking to GEOS 3.6.1, GDAL 2.1.3, PROJ 4.9.3</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(morphogram)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Attaching package: 'morphogram'</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; The following object is masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;     scale</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co"># load polygon data from the sf package</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11">nc &lt;-<span class="st"> </span>sf<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/sf/man/st_read.html">st_read</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"shape/nc.shp"</span>, <span class="dt">package=</span><span class="st">"sf"</span>),<span class="dt">quiet=</span>T)</a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co"># converge polygons around origin</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13">nc_converged &lt;-<span class="st"> </span><span class="kw"><a href="reference/converge.html">converge</a></span>(nc,<span class="dt">by.feature=</span>T)</a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co"># distribute polygons into regular grid</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15">nc_distributed &lt;-<span class="st"> </span><span class="kw"><a href="reference/distribute.html">distribute</a></span>(nc_converged, <span class="dt">margin=</span><span class="dv">1</span>, <span class="dt">x.mar=</span><span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co"># plot resulting distributed features</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co"># optional: select first parameter, this is just for clarity of the final plot</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18">nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <span class="co"># AREA</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="kw"><a href="https://rdrr.io/pkg/sf/man/plot.html">plot</a></span>(nc_d)</a></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
 <p><strong>For more information on how to get started, read the introduction vignette for guidance on how to get started using this package</strong>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/browseVignettes">browseVignettes</a></span>(<span class="st">"spatialcompare"</span>)</code></pre></div>
-<p>Or browse the documentation and vignette online: <a href="https://tcwilkinson.github.io/spatialcompare/" class="uri">https://tcwilkinson.github.io/spatialcompare/</a></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/browseVignettes.html">browseVignettes</a></span>(<span class="st">"morphogram"</span>)</a></code></pre></div>
+<p>Or browse the documentation and vignette online: <a href="https://tcwilkinson.github.io/morphogram/" class="uri">https://tcwilkinson.github.io/morphogram/</a></p>
+</div>
+<div id="applications" class="section level2">
+<h2 class="hasAnchor">
+<a href="#applications" class="anchor"></a>Applications</h2>
+<ul>
+<li>City size comparison</li>
+<li>Study region comparison</li>
+</ul>
+<p>Do let me know if you use this package in any publications, I’d be pleased to link to them here.</p>
 </div>
 <div id="improvements-and-contributions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#improvements-and-contributions" class="anchor"></a>Improvements and Contributions</h2>
 <p>For ideas and plans on how to improve this package in the future, <a href="TODO.html">see the TODO.md file</a>.</p>
 <p>Pull requests on this package which improve the documentation and methods are welcome.</p>
-<ul>
-<li>Author: Toby C. Wilkinson</li>
-<li>Date of this README: 2019-05-05</li>
-</ul>
+<!--
+## References
+
+-->
 </div>
 </div>
   </div>
@@ -155,9 +180,9 @@ nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <sp
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/tcwilkinson/spatialcompare">https://​github.com/​tcwilkinson/​spatialcompare</a>
+<li>Browse source code at <br><a href="https://github.com/tcwilkinson/morphogram">https://​github.com/​tcwilkinson/​morphogram</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/tcwilkinson/spatialcompare/issues">https://​github.com/​tcwilkinson/​spatialcompare/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/tcwilkinson/morphogram/issues">https://​github.com/​tcwilkinson/​morphogram/​issues</a>
 </li>
 </ul>
 </div>
@@ -170,7 +195,7 @@ nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <sp
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Toby Wilkinson <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4905-0522" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Toby Wilkinson <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-4905-0522" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 </ul>
 </div>
 
@@ -178,7 +203,7 @@ nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <sp
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://zenodo.org/badge/latestdoi/184946513"><img src="https://zenodo.org/badge/184946513.svg" alt="DOI"></a></li>
-<li><a href="https://travis-ci.org/tcwilkinson/spatialcompare"><img src="https://travis-ci.org/tcwilkinson/spatialcompare.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://travis-ci.org/tcwilkinson/morphogram"><img src="https://travis-ci.org/tcwilkinson/morphogram.svg?branch=master" alt="Travis build status"></a></li>
 </ul>
 </div>
 </div>
@@ -186,17 +211,20 @@ nc_d &lt;-<span class="st"> </span>nc_distributed[<span class="dv">1</span>] <sp
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Toby Wilkinson.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9100.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

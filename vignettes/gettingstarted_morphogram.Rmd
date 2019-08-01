@@ -1,10 +1,10 @@
 ---
-title: "Getting Started with `spatialcompare`: Ordered Tableaux for Simple Features"
+title: "Getting Started with `morphogram`: Ordered Tableaux for Simple Features"
 author: "Toby C. Wilkinson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to `spatialcompare`}
+  %\VignetteIndexEntry{Introduction to `morphogram`}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -33,13 +33,17 @@ For real world publication quality graphics, it is likely that the outputs will 
 
 ## Basics: How to Use this Package
 
-The package should first be installed using the usual paths (`install.packages`) from GitHub or elsewhere; the package can then be loaded using (`library(spatialcompare)`). Note that `spatialcompare` relies on the `sf` package, which in turn has dependencies on the GDAL libraries. Depending on the platform, you may need to install these libraries externally to R.
+The package should first be installed using the usual paths (`install.packages`) from GitHub or elsewhere; the package can then be loaded using (`library(morphogram)`). Note that `morphogram` relies on the `sf` package, which in turn has dependencies on the GDAL system shared libraries. 
+
+Depending on the platform, you may need to install these libraries externally to R. Take a look at the information about installing `sf` here if you haven't used simple features in R before: https://r-spatial.github.io/sf/ .
 
 ```{r }
-library(spatialcompare)
+library(morphogram)
 ```
 
-For this vignette, the a data example from the `sf` package will be used to demonstrate the functions of `spatialcompare`. This includes polygons of districts from North Carolina, and data with Sudden Infant Death Syndrome (SIDS) statistics for those counties (see `sf` documentation for more details, especially: https://r-spatial.github.io/spdep/articles/sids ). Here the original data is plotted as latitude/longitude format.
+For this vignette, the a data example from the `sf` package will be used to demonstrate the functions of `morphogram`. This includes polygons of districts from North Carolina, and data with Sudden Infant Death Syndrome (SIDS) statistics for those counties (see `sf` documentation for more details, especially: https://r-spatial.github.io/spdep/articles/sids ). 
+
+Here the original data is plotted as latitude/longitude format.
 
 ```{r }
 library(sf)
@@ -107,6 +111,22 @@ par(mar=c(0,0,0,0))
 plot(distribute(nc_converged, dir="h", rows=10))
 ```
 
+## Alignment of distributions
+
+At the outset `converge()` aligns shapes by their centroids around an origin. In order to align shapes within distributions, we can use the `align()` function. Shapes can be aligned "top", "bottom", "left", "right" by bounding box, "v[ertical]centroid", "h[orizontal]centroid" by centroid. For example, left alignment will produce this:-
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(align(nc_converged,"left"),dir="h", rows=10))
+```
+
+And top alignment:
+
+```{r }
+par(mar=c(0,0,0,0))
+plot(distribute(align(nc_converged,"top"),dir="h", rows=10))
+```
+
 ## Ordering distributions
 
 Often it is useful to sort the features by some attribute. This is best done before passing to `converge()` or `distribute()`. For example to order these county shapes by total area, we simply use a normal `order()` selection, and here just distribute the first twenty of them. Naturally they can also be coloured by the same or different parameters.
@@ -157,11 +177,13 @@ pdf(file ="export.pdf", width=10, height=10)
 dev.off()
 ```
 
-## Visualizing the relative size of countries 
+## Example: Visualizing the relative size of countries 
 
 There are many public sources of spatial polygons with recognisable shapes, such as national boundaries. Here the  boundaries of four countries are imported from `rnaturalearth`, re-convergeed, their geometric area calculated and then distributed as a grid in order of increasing area.
 
-```{r }
+** Note this vignette currently does not work due to problem with rnaturalearth **
+
+```r 
 library("rnaturalearth")
 uk <- st_as_sf(ne_countries(country = 'united kingdom', scale = 'medium'))["name_en"]
 it <- st_as_sf(ne_countries(country = 'italy', scale = 'medium'))["name_en"]
@@ -181,12 +203,12 @@ plot(distribute(compare_countries[order(compare_countries$area),])[1], main="Re-
 ```
 
 
-```{r }
+```r 
 library("rnaturalearth")
-urban_areas_src <- ne_download(scale = 50, type = "urban_areas", load = TRUE, returnclass="sf")
+urban_areas_src <- rnaturalearth::ne_download(scale = 50, type = "urban_areas", load = TRUE, returnclass="sf")
 urban_areas <- urban_areas_src[3]
 
-populated_places_src <- ne_download(scale = 50, type = "populated_places", load = TRUE, returnclass="sf")
+populated_places_src <- rnaturalearth::ne_download(scale = 50, type = "populated_places", load = TRUE, returnclass="sf")
 populated_places <- populated_places_src[c("name_en","ISO_A2")]
 
 ua <- st_intersects(urban_areas,populated_places)
@@ -205,6 +227,6 @@ text(st_coordinates(st_centroid(st_geometry(distr_urban))),labels=distr_urban,ce
 
 ```
 
-
-## Visualising the growth of cities
-
+<!--
+## Example: Visualising the growth of cities
+-->

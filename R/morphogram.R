@@ -1,11 +1,11 @@
-#' spatialcompare: A package to construct spatially-sensitive tableaux of spatial features.
+#' morphogram: A package to construct spatially-sensitive morphogram tableaux of spatial features.
 #'
-#' The spatialcompare package provides two main functions:
+#' The morphogram package provides two main functions:
 #' `converge`, and `distribute`, with additional support from `align`, `normalize` and `scale`.
 #'
-#' @section spatialcompare functions:
+#' @section morphogram functions:
 #'
-#' Constructing a spatialcompare graph requires two or more steps:
+#' Constructing a morphogram requires two or more steps:
 #' 1. transforming the spatial features so that they are centred around 0,0 of a
 #' notional or mock projection using metres - `converge`;
 #' 2. (optionally) transforming the converged features to particular alignment,
@@ -13,9 +13,9 @@
 #' 3. re-distributing features across the mock projection so that they can be
 #' plotted discretely and compared visually - `distribute`.
 #'
-#' Please read the Getting Started vignette for more information.
+#' Please read the Getting Started vignette ('morphogram') for more information.
 #'
 #' @docType package
-#' @name spatialcompare
+#' @name morphogram
 NULL
 #> NULL

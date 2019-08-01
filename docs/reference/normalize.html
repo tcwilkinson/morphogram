@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>distribute — distribute • morphogram</title>
+<title>normalize — normalize • morphogram</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,9 +32,11 @@
 
 
 
-<meta property="og:title" content="distribute — distribute" />
+<meta property="og:title" content="normalize — normalize" />
 
-<meta property="og:description" content="This function spatially distributes a set of sf features." />
+<meta property="og:description" content="NOT YET IMPLEMENTED
+This function normalizes the scale of sf features, normally polygons. By default the scaled parameter
+is the polygon *area*, so that each feature has an area of `scale` m2, whatever the actual shape of the polygon." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -118,71 +120,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>distribute</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tcwilkinson/morphogram/blob/master/R/distribute.R'><code>R/distribute.R</code></a></small>
-    <div class="hidden name"><code>distribute.Rd</code></div>
+    <h1>normalize</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tcwilkinson/morphogram/blob/master/R/normalize.R'><code>R/normalize.R</code></a></small>
+    <div class="hidden name"><code>normalize.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This function spatially distributes a set of sf features.</p>
+    <p>NOT YET IMPLEMENTED
+This function normalizes the scale of sf features, normally polygons. By default the scaled parameter
+is the polygon *area*, so that each feature has an area of `scale` m2, whatever the actual shape of the polygon.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>distribute</span>(<span class='no'>x</span>, <span class='kw'>preserve.parameters</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"regulargrid"</span>,
-  <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>max.features</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>x.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>normalize</span>(<span class='no'>x</span>, <span class='kw'>target</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"area"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.</p></td>
+      <td><p>An sf object, already processed with `converge`, to be transformed to normalized scale; REQUIRED.</p></td>
     </tr>
     <tr>
-      <th>preserve.parameters</th>
-      <td><p>Whether to preserve non-geometry parameters; default T.</p></td>
+      <th>target</th>
+      <td><p>Target value to be normalized to, usually a single numeric, but can also be a vector of numeric target values of equal length to number of features in x; value meaning depends on method, e.g. square metres for areal, or metres for linear methods; default=1.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Method used to distribute features; default and only functioning method is "regulargrid".</p></td>
-    </tr>
-    <tr>
-      <th>cols</th>
-      <td><p>Number of columns of features to plot before moving onto next line if dir="v".</p></td>
-    </tr>
-    <tr>
-      <th>rows</th>
-      <td><p>Number of rows of features to plot before moving onto next line if dir="h".</p></td>
-    </tr>
-    <tr>
-      <th>dir</th>
-      <td><p>Direction of overall diagram, "v" impiies filling each row first, "h" implies filling each column first; default "v".</p></td>
-    </tr>
-    <tr>
-      <th>max.features</th>
-      <td><p>Maximum features to compare; default=Inf.</p></td>
-    </tr>
-    <tr>
-      <th>margin</th>
-      <td><p>Scalar coefficient of spacing between features; default 1.2.</p></td>
-    </tr>
-    <tr>
-      <th>x.mar</th>
-      <td><p>Scalar coefficient of spacing between x values; default 1.</p></td>
-    </tr>
-    <tr>
-      <th>y.mar</th>
-      <td><p>Scalar coefficient of spacing between x values; default 1.</p></td>
-    </tr>
-    <tr>
-      <th>scale</th>
-      <td><p>Affine linear scaling of ALL feature dimensions, this is not areal scaling; default 1.</p></td>
-    </tr>
-    <tr>
-      <th>angle</th>
-      <td><p>Affine rotation of ALL feature in degrees; default 0.</p></td>
+      <td><p>Method of scaling: "area", "width", "height", "maxlinear"; default="area".</p></td>
     </tr>
     </table>
     
@@ -192,15 +158,11 @@
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The spatial features should be aligned around 0,0 for meaningful results.
-First use `converge` to bring together diversely distributed polygons around a single origin.
-Use `align` to align different sets of simple spatial features around the origin.</p>
-<p>Note that to rotate or scale features individually, you can use the `rotate` and `scale`
-methods with a vector parameters.</p>
+    <p>Features should have first been converged into a single comparable scale, using the `converge` function.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='converge.html'>converge</a></code></p></div>
+    <div class='dont-index'><p><code><a href='converge.html'>converge</a></code>, <code><a href='align.html'>align</a></code>, <code>normalize</code>, <code><a href='scale.html'>scale</a></code>, <code><a href='distribute.html'>distribute</a></code></p></div>
     
 
   </div>

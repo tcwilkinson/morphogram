@@ -11,3 +11,4 @@ NEWS.md
 TODO.md
 ^README\.Rmd$
 BUILDNOTES.md
+Rbuildignore

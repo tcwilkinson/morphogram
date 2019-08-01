@@ -1,11 +1,11 @@
-Package: spatialcompare
+Package: morphogram
 Type: Package
-Title: Visual Tableaux to Compare Spatial Features
-Version: 0.2.0
+Title: Morphogram Tableaux to Compare Spatial Features Visually
+Version: 0.3.0
 Authors@R:
     person("Toby", "Wilkinson", email = "open@tobywilkinson.co.uk", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-4905-0522"))
-URL: https://tcwilkinson.github.io/spatialcompare, https://github.com/tcwilkinson/spatialcompare
-BugReports: https://github.com/tcwilkinson/spatialcompare/issues
+URL: https://tcwilkinson.github.io/morphogram, https://github.com/tcwilkinson/morphogram
+BugReports: https://github.com/tcwilkinson/morphogram/issues
 Description: Support to construct side-by-side tableaux ("infographics") of diverse spatial 
    features, especially polygons. Projected spatial dimensions are preserved. 
    Possible applications include visualization and comparison of dimensions of ancient and 
@@ -13,10 +13,10 @@ Description: Support to construct side-by-side tableaux ("infographics") of dive
 License: CC BY-SA 4.0
 Encoding: UTF-8
 LazyData: true
-Imports:
-    sf
+Imports: sf
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    rnaturalearth
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
