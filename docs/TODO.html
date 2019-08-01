@@ -162,9 +162,9 @@
 <h3 class="hasAnchor">
 <a href="#generalise-transitions-so-that-different-sf-objects-can-be-matched-based-on-a-single-feature-" class="anchor"></a>Generalise transitions so that different sf objects can be matched based on a single feature.</h3>
 <ul>
-<li>Add a <code>z</code> parameter to all functions so that objects can be transformed in a way dictated by another sf layer.
+<li>Add a <code>z</code> or <code>byother</code> parameter to functions so that objects can be transformed in a way dictated by another converged sf layer. This could potentially be used for rasters etc with some additional work
 <ul>
-<li>#’ @param z An sf object, already processed with <code>converge</code>, from which transformation will be calculated. default=NULL.</li>
+<li>#’ @param z/byother An sf object, already processed with <code>converge</code>, from which transformation will be calculated. default=NULL.</li>
 </ul>
 </li>
 </ul>

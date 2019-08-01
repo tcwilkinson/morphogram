@@ -7,7 +7,7 @@
 
 <!-- badges: start -->
 
-[![DOI](https://zenodo.org/badge/184946513.svg)](https://zenodo.org/badge/latestdoi/184946513)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2667405.svg)](https://doi.org/10.5281/zenodo.2667405)
 [![Travis build
 status](https://travis-ci.org/tcwilkinson/morphogram.svg?branch=master)](https://travis-ci.org/tcwilkinson/morphogram)
 <!--

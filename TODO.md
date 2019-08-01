@@ -22,8 +22,8 @@
 
 ### Generalise transitions so that different sf objects can be matched based on a single feature.
 
-- Add a `z` parameter to all functions so that objects can be transformed in a way dictated by another sf layer.
-    - #' @param z An sf object, already processed with `converge`, from which transformation will be calculated. default=NULL.
+- Add a `z` or `byother` parameter to functions so that objects can be transformed in a way dictated by another converged sf layer. This could potentially be used for rasters etc with some additional work
+    - #' @param z/byother An sf object, already processed with `converge`, from which transformation will be calculated. default=NULL.
 
 ### Convenience functions
 
