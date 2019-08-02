@@ -131,7 +131,8 @@
 
     <pre class="usage"><span class='fu'>distribute</span>(<span class='no'>x</span>, <span class='kw'>preserve.parameters</span> <span class='kw'>=</span> <span class='no'>T</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"regulargrid"</span>,
   <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"v"</span>, <span class='kw'>max.features</span> <span class='kw'>=</span> <span class='fl'>200</span>,
-  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>x.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+  <span class='kw'>margin</span> <span class='kw'>=</span> <span class='fl'>1.1</span>, <span class='kw'>x.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>y.mar</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>x.nudge</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y.nudge</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>label.points</span> <span class='kw'>=</span> <span class='no'>F</span>, <span class='kw'>label.pos</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -142,7 +143,7 @@
     </tr>
     <tr>
       <th>preserve.parameters</th>
-      <td><p>Whether to preserve non-geometry parameters; default T.</p></td>
+      <td><p>Whether to preserve non-geometry parameters; default TRUE.</p></td>
     </tr>
     <tr>
       <th>method</th>
@@ -177,12 +178,28 @@
       <td><p>Scalar coefficient of spacing between x values; default 1.</p></td>
     </tr>
     <tr>
+      <th>x.nudge</th>
+      <td><p>Additional spacing to add to x margins; default 0.</p></td>
+    </tr>
+    <tr>
+      <th>y.nudge</th>
+      <td><p>Additional spacing to add to y margins; defautl 0.</p></td>
+    </tr>
+    <tr>
       <th>scale</th>
       <td><p>Affine linear scaling of ALL feature dimensions, this is not areal scaling; default 1.</p></td>
     </tr>
     <tr>
       <th>angle</th>
       <td><p>Affine rotation of ALL feature in degrees; default 0.</p></td>
+    </tr>
+    <tr>
+      <th>label.points</th>
+      <td><p>If TRUE, will add two columns label_x and label_y to resulting sf data.frame based on label.pos; default FALSE.</p></td>
+    </tr>
+    <tr>
+      <th>label.pos</th>
+      <td><p>Position value for point at edge of regular grid squares, 0=centre, 1=top, 2=right, 3=bottom, 4=left; default=0.</p></td>
     </tr>
     </table>
     

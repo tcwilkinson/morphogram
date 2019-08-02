@@ -6,12 +6,13 @@
 \usage{
 distribute(x, preserve.parameters = T, method = "regulargrid",
   cols = NULL, rows = NULL, dir = "v", max.features = 200,
-  margin = 1.2, x.mar = 1, y.mar = 1, scale = 1, angle = 0)
+  margin = 1.1, x.mar = 1, y.mar = 1, x.nudge = 0, y.nudge = 0,
+  scale = 1, angle = 0, label.points = F, label.pos = 1)
 }
 \arguments{
 \item{x}{An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.}
 
-\item{preserve.parameters}{Whether to preserve non-geometry parameters; default T.}
+\item{preserve.parameters}{Whether to preserve non-geometry parameters; default TRUE.}
 
 \item{method}{Method used to distribute features; default and only functioning method is "regulargrid".}
 
@@ -29,9 +30,17 @@ distribute(x, preserve.parameters = T, method = "regulargrid",
 
 \item{y.mar}{Scalar coefficient of spacing between x values; default 1.}
 
+\item{x.nudge}{Additional spacing to add to x margins; default 0.}
+
+\item{y.nudge}{Additional spacing to add to y margins; defautl 0.}
+
 \item{scale}{Affine linear scaling of ALL feature dimensions, this is not areal scaling; default 1.}
 
 \item{angle}{Affine rotation of ALL feature in degrees; default 0.}
+
+\item{label.points}{If TRUE, will add two columns label_x and label_y to resulting sf data.frame based on label.pos; default FALSE.}
+
+\item{label.pos}{Position value for point at edge of regular grid squares, 0=centre, 1=top, 2=right, 3=bottom, 4=left; default=0.}
 }
 \value{
 An sf object containing one or more features (with no defined CRS)

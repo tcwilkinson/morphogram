@@ -18,7 +18,7 @@ status](https://travis-ci.org/tcwilkinson/morphogram.svg?branch=master)](https:/
 
   - Version: 0.3.0 (beta).
   - Author: Toby C. Wilkinson.
-  - Date of this README document: 2019-08-01.
+  - Date of this README document: 2019-08-02.
 
 This R-package is designed to facilitate the construction of
 “morphogram”-based infographics which place dispersed spatial

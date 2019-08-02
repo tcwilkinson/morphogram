@@ -31,8 +31,11 @@ converge <- function(x, by.feature=T, combine=F) {
   if (isTRUE(sf::st_is_longlat(x))) {
     x1 <- sf::st_transform(x, 3395) # EPSG for World Mercator to enable better centroids with metres
     warning("Supplied sf object uses lat/long values, hence converted to Mercator; centroids may not be satisfactory")
-  } else { x1 = x }
+  } else {
+    x1 = sf::st_transform(x, 3395)
+  }
 
+  # use centroid of each polygon
   # if interested in centroid of entire layer then temporarily find the union of x
   if(isFALSE(by.id) && length(x)>1) { x1 <- sf::st_union(x1) }
 
@@ -44,13 +47,13 @@ converge <- function(x, by.feature=T, combine=F) {
   long <- sf::st_coordinates(centroid)[,1]  # x
   local_crs <- paste0("+proj=etmerc +lat_0=",lat," +lon_0=",long,
                       " +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+
   # transform original sf layer to mock local projection
-  if(isFALSE(by.id) || nrow(x)<2) {
+  if(isFALSE(by.id) | nrow(x)<2) {
     # if a single row provided OR if not interested in individual items, simples
     y <- sf::st_transform(x, local_crs)
     # remove CRS
     y <- sf::st_set_crs(y, NA)
-    if (isTRUE(combine)) { y <- sf::st_combine(y) }
   } else {
     # effectively split each original polygon, reproject, then recombine into single layer
     y <- list()
@@ -67,5 +70,6 @@ converge <- function(x, by.feature=T, combine=F) {
     # y <- purrr::map(x, temp_transform)
     #y$new_crs <- NULL
   }
+  if (isTRUE(combine)) { y <- sf::st_combine(y) }
   return(y)
 }
