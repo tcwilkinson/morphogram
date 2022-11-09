@@ -48,10 +48,10 @@ Here the original data is plotted as latitude/longitude format.
 ```{r }
 library(sf)
 nc_original <- sf::st_read(system.file("shape/nc.shp", package="sf"))
-plot(nc_original,axes=T)
+#plot(nc_original,axes=T)
 ```
 
-The `nc` data-set has lots of fields, but for simplifying the visualisations below, we'll just select one parameter (`AREA`), which is parameter `[1]`.
+The `nc` data-set has lots of fields, but for simplifying the example visualisations below, we'll just select one parameter (`AREA`), which is parameter `[1]`.
 
 ```{r }
 nc <- nc_original[1]
@@ -62,19 +62,35 @@ plot(nc,axes=T)
 
 We are going to compare the different dimensions of the North Carolina counties side-by-side. The first step is to **converge** the `sf` features (in this case the county shapes) around a central point of the feature (often a centroid) to `0,0` using a unified coordinate system. 
 
-For this we use the `converge` function. In some instances we might want to transform multiple features around a single centroid for the entire collection of features:-
+For this we use the `converge` function. In some instances we might want to transform multiple features around a single centroid for the entire collection of features. The difference is not very obvious, only the x- and y-axis scales have changed because the units have changed from the original set of spatial coordinates (which show up above on degrees) to a non-specified projection using metres.
 
 ```{r }
 nc_converged_combined <- converge(nc,by.feature=F)
 plot(nc_converged_combined,axes=T)
 ```
 
-However, since we are specifically interested in comparing the county shapes and sizes, we would like to transform each county individually, `by.feature` should be `TRUE` (the default). Here you can see that all of the counties are now overlapping around `0,0`.
+Since we are specifically interested in comparing the county shapes and sizes within this group, we would like to transform each county individually, `by.feature` should be `TRUE` (the default). Here you can see that all of the counties are now overlapping around `0,0`.
 
 ```{r }
 nc_converged <- converge(nc) # which is the same as:   converge(nc,by.feature=T)
-plot(nc_converged,axes=T)
 ```
+
+```{r }
+# for alpha transparency
+require(scales)
+
+plot(nc_converged,axes=T,col=scales::alpha(sf.colors(5),0.1),lwd=0.5)
+grid_origin <- st_sf(data.frame(name=1, geom=st_sfc(st_point(c(0.0,0.0), dim = "XY"))))
+plot(grid_origin, col="red", pch=3, add=T)
+```
+
+Overlaying all the polygons in the same place is probably not all that meaningful in most cases. But if the number of polygons is smaller the output from `converge` may give a visual sense of relative sizing:
+
+```{r }
+plot(nc_converged[1:3,],axes=T,col=scales::alpha(sf.colors(3),0.3),lwd=0.5)
+```
+
+
 
 ### 2. Distribute: `regulargrid` method
 

@@ -17,6 +17,6 @@
 #' sf_layer <- normalize(sf_layer, method="top")
 #' @export
 normalize <- function(x, target=1, method="area") {
-  warning("Not yet implemented!")
+  stop("normalize() is not yet implemented!")
   return(x)
 }
