@@ -4,14 +4,14 @@
 \alias{rotate}
 \title{rotate}
 \usage{
-rotate(x, angle = c(0), method = "origin")
+rotate(x, angle = c(0), origin = "centroid")
 }
 \arguments{
 \item{x}{An sf object, to be transformed in alignment; REQUIRED.}
 
 \item{angle}{Angle in degrees; default=0.}
 
-\item{method}{Whether to use centroid or coordinates origin; default="origin", alternative="centroid".}
+\item{origin}{Whether to use centroid or coordinates origin; default="centroid".}
 }
 \value{
 An sf object containing one or more features

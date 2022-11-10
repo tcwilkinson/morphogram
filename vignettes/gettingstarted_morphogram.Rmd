@@ -4,7 +4,7 @@ author: "Toby C. Wilkinson"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to `morphogram`}
+  %\VignetteIndexEntry{Getting Started with `morphogram`: Ordered Tableaux for Simple Features}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

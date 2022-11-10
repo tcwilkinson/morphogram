@@ -89,10 +89,15 @@ get_table_layout_index <- function(layout,i=1:(nrow(layout)*ncol(layout))) {
 
 #' get_transform
 #'
-#' An internal function which calculates a set of transformations needed and
-#' returns them in a data.frame with columns xshift, yshift for affine transforms,
-#' rotate for rotation transformations.
-#' Exact parameters used depend on the transformation method used.
+#' An internal function which calculates a set of transformations needed for a set of features and
+#' returns these transformation instructions as a data.frame with columns xshift, yshift for affine transforms,
+#' rotate for rotation transformations as an angle, plus xcellwidth, ycellheight for grid based methods
+#' to help find the cell heights and widths per feature.
+#'
+#' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
+#' @param method Method used to distribute features; default and only functioning method is "regulargrid".
+#'
+#' Other parameters used depend on the transformation method used.
 #'
 #' @param direction Direction of overall diagram, "row" fills each row first, "column" fills each column first; default "row".
 #' @param cols Number of columns of features to plot before moving onto next line if dir="v".
@@ -104,13 +109,13 @@ get_table_layout_index <- function(layout,i=1:(nrow(layout)*ncol(layout))) {
 #' @param y.nudge Additional spacing to add to y margins; default 0.
 get_transform <- function(x, method="regulargrid", ...) {
 
+
   # set default values for args, and check for unexpected parameters
   defaultArgs = list(
     #For all
     margin=1.1,x.mar=1,y.mar=1,
     #For regulargrid or table
     bb=NULL,origincorner="topleft",direction="row",cols=NULL,rows=NULL,
-    transform_target="bbox_centre",
     x.nudge=0.0,y.nudge=0.0
   )
   elli = names(list(...))
@@ -187,6 +192,8 @@ get_transform <- function(x, method="regulargrid", ...) {
     if(!margin==1) { bb$width = bb$width * margin; bb$height = bb$height * margin }
     if(!x.mar==1) { bb$width = bb$width * x.mar }
     if(!y.mar==1) { bb$height = bb$height * y.mar }
+    if(!x.nudge==0.0) { bb$width = bb$width + x.nudge }
+    if(!y.nudge==0.0) { bb$height = bb$height + y.nudge }
 
     if (method=="table") {
       # shift must be sensitive to own col/row and to previous, so loops/apply(s) required
@@ -195,62 +202,43 @@ get_transform <- function(x, method="regulargrid", ...) {
           max(bb$width[bb$col == x],na.rm=T)
         )
       )
-      bb$xcolmax = rep(xcolmaxes,max(bb$row))[1:nrow(bb)]
-      uxcolmax = unique(bb[c("col","xcolmax")])
+      bb$xcellwidth = rep(xcolmaxes,max(bb$row))[1:nrow(bb)]
+      uxcellwidth = unique(bb[c("col","xcellwidth")])
 
       yrowmaxes = as.vector(
         sapply(bb$row, function(y)
           max(bb$height[bb$row == y],na.rm=T)
         )
       )
-      bb$yrowmax = rep(yrowmaxes,max(bb$col))[1:nrow(bb)]
-      uyrowmax = unique(bb[c("row","yrowmax")])
+      bb$ycellheight = rep(yrowmaxes,max(bb$col))[1:nrow(bb)]
+      uycellheight = unique(bb[c("row","ycellheight")])
 
       bb$xshift = ((as.vector(
         sapply(bb$col, function(x)
-          sum(uxcolmax$xcolmax[uxcolmax$col < x],na.rm=T)
+          sum(uxcellwidth$xcellwidth[uxcellwidth$col < x],na.rm=T)
         )
-      ) + x.nudge) * shiftxdir) + (bb$xcolmax/2 * shiftxdir)
+      ) + x.nudge) * shiftxdir) + (bb$xcellwidth/2 * shiftxdir)
 
       bb$yshift = ((as.vector(
         sapply(bb$row, function(y)
-          sum(uyrowmax$yrowmax[uyrowmax$row < y],na.rm=T)
+          sum(uycellheight$ycellheight[uycellheight$row < y],na.rm=T)
         )
-      ) + y.nudge) * shiftydir) + (bb$yrowmax/2 * shiftydir)
+      ) + y.nudge) * shiftydir) + (bb$ycellheight/2 * shiftydir)
 
     } else if (method=="regulargrid") {
       # relatively simple as each shift is regular based on bbox of largest object
-      bb$xcolmax = max(bb$width,na.rm=T)
-      bb$yrowmax = max(bb$height,na.rm=T)
+      bb$xcellwidth = max(bb$width,na.rm=T)
+      bb$ycellheight = max(bb$height,na.rm=T)
 
-      bb$xshift = (bb$xcolmax/2 * shiftxdir) + ((bb$xcolmax + x.nudge) * (bb$col-1) * shiftxdir)
-      bb$yshift = (bb$yrowmax/2 * shiftydir) + ((bb$yrowmax + y.nudge) * (bb$row-1) * shiftydir)
+      bb$xshift = (bb$xcellwidth/2 * shiftxdir) + ((bb$xcellwidth + x.nudge) * (bb$col-1) * shiftxdir)
+      bb$yshift = (bb$ycellheight/2 * shiftydir) + ((bb$ycellheight + y.nudge) * (bb$row-1) * shiftydir)
     }
-
-    target_x <- bb$xshift
-    target_y <- bb$yshift
-    if(tf_target=="centre") {
-      #keep as is
-    } else if (tf_target=="top") {
-      target_y <- bb$yshift + (bb$yrowmax/2)
-    } else if (tf_target=="bottom") {
-      target_y <- bb$yshift - (bb$yrowmax/2)
-    } else if (tf_target=="right") {
-      target_x <- bb$xshift + (bb$xcolmax/2)
-    } else if (tf_target=="left") {
-      target_x <- bb$xshift - (bb$xcolmax/2)
-    }
-
-    #bb$target_x <-
-    #bb$target_y <- target_y
-    bb$xshift <- target_x #bb$target_x
-    bb$yshift <- target_y #bb$target_y
 
     # There is no rotation in default grid-based method, but we pass it back as 0
     bb$rotate <- 0
 
     #return(bb)
-    return(bb[,c("xshift","yshift","rotate")])
+    return(bb[,c("xshift","yshift","rotate","xcellwidth","ycellheight")])
   } else {
     stop("Unknown transformation method: ",method)
   }
@@ -269,11 +257,9 @@ get_transform <- function(x, method="regulargrid", ...) {
 #' methods with a vector parameters.
 #'
 #' @param x An sf-compatible feature layer, often containing polygons whose size is to be visually compared; REQUIRED.
-#' @param preserve.parameters Whether to preserve non-geometry parameters; default TRUE.
+#' @param preserve.parameters Whether to preserve non-geometry parameters; default TRUE (deprecated).
 #' @param method Method used to distribute features; default and only functioning method is "regulargrid".
-#' @param max.features Maximum features to compare; default=200.
-#' @param scale Affine linear scaling of ALL feature dimensions, this is not areal scaling; default 1.
-#' @param angle Affine rotation of ALL feature in degrees; default 0.
+#' @param max.features Maximum features to compare; default=240.
 #' @param label.points If TRUE, will add two columns label_x and label_y to resulting sf data.frame based on label.pos; default FALSE.
 #' @param label.pos Position value for point at edge of regular grid squares, 0=centre, 1=top, 2=right, 3=bottom, 4=left; default=0.
 #' @seealso \code{\link{converge}}
@@ -287,14 +273,12 @@ get_transform <- function(x, method="regulargrid", ...) {
 #' distribute(sf_layer)
 #' distribute(sf_layer,margin=1.5)
 #' @export
-distribute <- function(x, preserve.parameters=T, max.features=200,
+distribute <- function(x, preserve.parameters=T, max.features=240,
                        method="regulargrid",
                        #scale=1, angle=0,
                        label.points=F, label.pos=1,
                        ...
 ) {
-  sf = x # copy for code readability
-  #sf2 <- sf # make copy to preserve original attributes
 
   known_methods <- c("regulargrid","table")
   if (!method %in% known_methods) {
@@ -304,15 +288,17 @@ distribute <- function(x, preserve.parameters=T, max.features=200,
     stop("Parameter x must be an sf object with at least one feature")
     return(x)
   }
-  if (max.features>200) {
+  if (max.features>240) {
     warning("Friendly advice: distributing too many features may make it difficult to perceive size differences")
   }
   if (max.features<nrow(x)) {
-    warning(paste0("There are more features (",nrow(x),") than the value of max.features; only the first ",
-                   max.features," features will be distributed"))
+    warning(paste0("There are more features (",nrow(x),") in x than the value of max.features; only the first ",
+                   max.features," features will be distributed and returned"))
     x <- x[1:max.features,]
   }
-  if (max.features>nrow(x)) { max.features = nrow(x) }
+  if(!isTRUE(preserve.parameters)) {
+    x <- sf::st_geometry(x)
+  }
 
   bb = st_bbox_and_dims(x)
 
@@ -323,35 +309,54 @@ distribute <- function(x, preserve.parameters=T, max.features=200,
     warning("Friendly advice: the ratio of largest to smallest bounding boxes is very high (width ratio=",ratio_x,", height=",ratio_y,"), depending on the scale of the plot, the visualisation may be difficult to comprehend")
   }
 
-  # get data on how to transform each feature according to method
-  tt = "centre"
-  if(isTRUE(label.points)) {
-    if(label.pos==1 || label.pos=="top") tt = "top"
-    if(label.pos==2 || label.pos=="right") tt = "right"
-    if(label.pos==3 || label.pos=="bottom") tt = "bottom"
-    if(label.pos==4 || label.pos=="left") tt = "left"
+  # get data.frame describing how to transform each feature according to method
+  at = get_transform(x, method=method, bb=bb, ...)
+
+  # transform per individual feature
+  d <- list()
+  for (i in 1:nrow(x)) {
+    tr <- at[i,]
+    ft <- x[i,]
+    d[[i]] <- sf::st_sf(sf::st_drop_geometry(x[i,]),
+      geom=(sf::st_geometry(ft) + c(tr$xshift,tr$yshift)))
   }
-  at = get_transform(x, method=method, bb=bb, transform_target=tt, ...)
+  d <- sf::st_sf(do.call(rbind,d))
 
-  # map according to individual features translation shift
-  sfg <- sf::st_sfc( cbind(mapply(FUN=function(geom,xshift,yshift,rotate) {
-    if(rotate!=0) {
-      geom * rotate_fun(rotate) + c(xshift,yshift)
-    } else {
-      geom + c(xshift,yshift)
-    }
-  }, sf::st_geometry(sf), at[["xshift"]], at[["yshift"]], at[["rotate"]],  SIMPLIFY = F)) )
-  sf::st_geometry(sf) <- sfg
+  # # map according to individual features translation shift
+  # sfg <- sf::st_sfc( cbind(mapply(FUN=function(geom,xshift,yshift,rotate) {
+  #   if(rotate!=0) {
+  #     geom * rotate_fun(rotate) + c(xshift,yshift)
+  #   } else {
+  #     geom + c(xshift,yshift)
+  #   }
+  # }, sf::st_geometry(x), at[["xshift"]], at[["yshift"]], at[["rotate"]],  SIMPLIFY = F)) )
+  # # create return transformed features
+  # #message("Creating new sf layer")
+  # sf = sf::st_sf(sf::st_drop_geometry(x),geom=sfg)
 
   if(isTRUE(label.points)) {
-    # convert sf to a set of centroid points
-    sf = sf::st_centroid(sf)
+    # first convert sf to a set of centroid points
+    pts = sf::st_centroid(d)
     # add coords for targetted points for labels
-    sf$label_x = st_coordinates(sf)[,1]
-    sf$label_y = st_coordinates(sf)[,2]
+    d$label_x = sf::st_coordinates(pts)[,1]
+    d$label_y = sf::st_coordinates(pts)[,2]
+    if(isTRUE(label.points)) {
+      if(label.pos==1 || label.pos %in% c("top","topleft","topright") ) {
+        d$label_y = d$label_y + (at$ycellheight/2)
+      }
+      if(label.pos==2 || label.pos %in% c("right","bottomright","topright") ) {
+        d$label_x = d$label_x + (at$xcellwidth/2)
+      }
+      if(label.pos==3 || label.pos %in% c("bottom","bottomleft","bottomright") ) {
+        d$label_y = d$label_y - (at$ycellheight/2)
+      }
+      if(label.pos==4 || label.pos %in% c("left","bottomleft","topleft") ) {
+        d$label_x = d$label_x - (at$xcellwidth/2)
+      }
+    }
   }
 
-  sf
+  return(d)
 }
 
 # old_distribute <- function(x, preserve.parameters=T,

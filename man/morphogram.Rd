@@ -3,7 +3,6 @@
 \docType{package}
 \name{morphogram}
 \alias{morphogram}
-\alias{morphogram-package}
 \title{morphogram: A package to construct spatially-sensitive morphogram tableaux of spatial features.}
 \description{
 The morphogram package provides two main functions:

@@ -4,7 +4,7 @@
 #'
 #' @param x An sf object, to be transformed in alignment; REQUIRED.
 #' @param angle Angle in degrees; default=0.
-#' @param method Whether to use centroid or coordinates origin; default="origin", alternative="centroid".
+#' @param origin Whether to use centroid or coordinates origin; default="centroid".
 #' @keywords sf, rotation
 #' @seealso \code{\link{converge}}, \code{\link{align}}, \code{\link{normalize}}, \code{\link{scale}}, \code{\link{distribute}}
 #' @return An sf object containing one or more features
@@ -12,7 +12,11 @@
 #' sf_layer <- sf::st_read(system.file("shape/nc.shp", package="sf"))
 #' sf_layer <- rotate(sf_layer, angle=45)
 #' @export
-rotate <- function(x, angle=c(0), method="origin") {
+rotate <- function(x, angle=c(0), origin="centroid") {
+  if (!(origin=="origin" | origin=="centroid")) {
+    stop("Warning: unknown origin value '",origin,"'")
+  }
+
   if (nrow(x)>0) {
     if (length(angle)==1 | length(angle)==nrow(x)) {
       # Angle
@@ -27,10 +31,10 @@ rotate <- function(x, angle=c(0), method="origin") {
         }
         s1 <- sf::st_geometry(x[i,])
         dt <- sf::st_drop_geometry(x[i,])
-        if (method=="centroid") {
+        if (origin=="centroid") {
           cn = sf::st_centroid(s1)
           s2 = (s1-cn) * rotate_fun(angle[i]) + cn
-        } else if(method=="origin") {
+        } else if(origin=="origin") {
           s2 = s1 * rotate_fun(angle[i])
         } else {
           s2 = s1
@@ -42,20 +46,15 @@ rotate <- function(x, angle=c(0), method="origin") {
       }
       # Combine all items into a single sf frame again
       d <- sf::st_sf(do.call(rbind,d))
-      if (!(method=="origin" | method=="centroid")) {
-        message(paste0("Warning: unknown method '",method,"', returning unaltered feature"))
-      }
 
       return(d)
 
     } else {
-      # Error in length of angle vector
-      message("angle must be a single numerical value in degrees to be applied to all features, or a vector of numerical values the same length as the number of rows in x")
-      return(x)
+      stop("angle must be either a single numerical value in degrees to be applied to all features, or a vector of numerical values the same length as the number of rows in x")
     }
   } else {
     # Warning
-    message("No features provided to rotate, returning the same object")
+    warning("No features provided to rotate, returning the identical empty object")
     return(x)
   }
 
